@@ -59,6 +59,43 @@ paths:
             application/json:
               schema:
                 $ref: '#/definitions/Question'
+    post:
+      description: Adds a new question.
+      parameters:
+      - in: body
+        name: Question
+        required: true
+        schema:
+          type: object
+          properties:
+            questionText:
+              type: string
+            domain:
+              type: string
+            options:
+              type: object
+              properties:
+                FirstOption:
+                  type: string
+                SecondOption:
+                  type: string
+                ThirdOption:
+                  type: string
+                FourthOption:
+                  type: string
+            difficultyLevel:
+              type: integer
+            correctOption:
+              type: object
+              properties:
+                SingleCorrect:
+                  type: string
+      responses:
+        201:
+          description: Created
+        404:
+          description: Not Found
+
   /questions/{difficultyLevel}:
     get:
       description: Gets all the question of specific difficulty.
@@ -91,7 +128,6 @@ paths:
         required: true
         schema:
             type: string
-            minimum: null
       responses:
         200:
           description: OK
@@ -105,60 +141,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/definitions/Question'
-  /add:
-    post:
-      description: Add Questions to the existing database of Questions.
-      consumes:
-        - application/json
-      produces:
-        - application/json
-      requestBody:
-        content:
-          Questions:
-            schema:
-            type: object
-            properties:
-              questionText:
-                type: string
-                example: what is 2+2?
-              domain:
-                type: string
-                example: Maths
-              difficultyLevel:
-                type: integer
-                example: 1
-              correctOption:
-                type: object
-                properties:
-                  SingleCorrect:
-                    type: string
-                    example: 4
-              options:
-                type: object
-                properties:
-                  FirstOption:
-                    type: string
-                    example: 4
-                  SecondOption:
-                    type: string
-                    example: 3
-                  ThirdOption:
-                    type: string
-                    example: 2
-                  FourthOption:
-                    type: string
-                    example: 22
-          required: true
-      responses: 
-        201: 
-          description: Created a new question
-          examples: 
-            application/json: 
-             {
-               "status": "Success"
-             }
-        405:
-          description: Invalid Input.
 
               
               
