@@ -1,0 +1,168 @@
+swagger: "2.0"
+info:
+  title: Admin
+  description: The master control for the entire project.
+definitions:
+  Question:
+    type: object
+    required:
+      - questionId
+      - questionText
+      - domain
+      - difficultyLevel
+      - correctOption
+      - options
+    properties:
+      questionId:
+        type: string
+      questionText:
+        type: string
+      domain:
+        type: string
+      options:
+        type: object
+        properties:
+          FirstOption:
+            type: string
+          SecondOption:
+            type: string
+          ThirdOption:
+            type: string
+          FourthOption:
+            type: string
+      difficultyLevel:
+        type: integer
+      conceptTags:
+        type: array
+        items:
+          type: string
+      correctOption:
+        type: object
+        properties:
+          SingleCorrect:
+            type: string
+
+paths:
+  /questions:
+    get:
+      description: Gets all the question which needs to be delivered to user.
+      responses:
+        200:
+          description: OK
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Question'
+        404:
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/definitions/Question'
+  /questions/{difficultyLevel}:
+    get:
+      description: Gets all the question of specific difficulty.
+      parameters:
+      - in: path
+        name: difficultyLevel
+        required: true
+        schema:
+            type: integer
+            minimum: 1
+      responses:
+        200:
+          description: OK
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Question'
+        404:
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/definitions/Question'
+  /questions/{domain}:
+    get:
+      description: Gets all the question of specific domain.
+      parameters:
+      - in: path
+        name: domain
+        required: true
+        schema:
+            type: string
+            minimum: null
+      responses:
+        200:
+          description: OK
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Question'
+        404:
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/definitions/Question'
+  /add:
+    post:
+      description: Add Questions to the existing database of Questions.
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      requestBody:
+        content:
+          Questions:
+            schema:
+            type: object
+            properties:
+              questionText:
+                type: string
+                example: what is 2+2?
+              domain:
+                type: string
+                example: Maths
+              difficultyLevel:
+                type: integer
+                example: 1
+              correctOption:
+                type: object
+                properties:
+                  SingleCorrect:
+                    type: string
+                    example: 4
+              options:
+                type: object
+                properties:
+                  FirstOption:
+                    type: string
+                    example: 4
+                  SecondOption:
+                    type: string
+                    example: 3
+                  ThirdOption:
+                    type: string
+                    example: 2
+                  FourthOption:
+                    type: string
+                    example: 22
+          required: true
+      responses: 
+        201: 
+          description: Created a new question
+          examples: 
+            application/json: 
+             {
+               "status": "Success"
+             }
+        405:
+          description: Invalid Input.
+
+              
+              
+              
+
+
+
