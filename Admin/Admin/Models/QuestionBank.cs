@@ -20,6 +20,25 @@ namespace Admin.Models
         public string[] conceptTags;
         [BsonElement("questionType")]
         public string questionType { get; set; }
+        public Question()
+        {
+            if (questionType == "MCQ")
+            {
+                questionStructure = new MCQType();
+            }
+            else if (questionType == "MMCQ")
+            {
+                questionStructure = new MMCQType();
+            }
+            else if (questionType == "TrueFalse")
+            {
+                questionStructure = new trueFalse();
+            }
+            else
+            {
+                questionStructure = new fillBlanks();
+            }
+        }
         [BsonElement("questionStructure")]
         public IQuestionStructure questionStructure { get; set; }
     }
