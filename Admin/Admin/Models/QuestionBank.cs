@@ -29,19 +29,14 @@ namespace Admin.Models
         [BsonId]
         public string id { get; set; }
         [BsonElement]
-        public string FirstOption { get; set; }
-        [BsonElement]
-        public string SecondOption { get; set; }
-        [BsonElement]
-        public string ThirdOption { get; set; }
-        [BsonElement]
-        public string FourthOption { get; set; }
+        public string Option { get; set; }
+       
     }
     public class correctOption
     {
         [BsonId]
         public string id { get; set; }
         [BsonElement]
-        public string FirstCorrectOption { get; set; }
+        public string CorrectOption { get; set; }
     }
 }
