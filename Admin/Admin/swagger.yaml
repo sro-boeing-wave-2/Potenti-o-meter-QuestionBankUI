@@ -66,9 +66,8 @@ paths:
       - in: path
         name: difficultyLevel
         required: true
-        schema:
-            type: integer
-            minimum: 1
+        type: integer
+        minimum: 1
       responses:
         200:
           description: OK
@@ -89,9 +88,8 @@ paths:
       - in: path
         name: domain
         required: true
-        schema:
-            type: string
-            minimum: null
+        type: string
+        minimum: null
       responses:
         200:
           description: OK
@@ -106,59 +104,90 @@ paths:
               schema:
                 $ref: '#/definitions/Question'
   /add:
-    post:
-      description: Add Questions to the existing database of Questions.
-      consumes:
-        - application/json
-      produces:
-        - application/json
-      requestBody:
-        content:
-          Questions:
-            schema:
+   post:
+      description: Adds a new question.
+      parameters:
+      - in: body
+        name: Question
+        required: true
+        schema:
+          type: object
+          properties:
+            questionText:
+              type: string
+            domain:
+              type: string
+            options:
+              type: object
+              properties:
+                FirstOption:
+                  type: string
+                SecondOption:
+                  type: string
+                ThirdOption:
+                  type: string
+                FourthOption:
+                  type: string
+            difficultyLevel:
+              type: integer
+            correctOption:
+              type: object
+              properties:
+                SingleCorrect:
+                  type: string
+      responses:
+        201:
+          description: Created
+        204:
+          description: No Content
+  /delete/{domain}:
+    delete:
+      description: Delete all the question of specific domain.
+      parameters:
+      - in: path
+        name: domain
+        required: true
+        type: string
+      responses:
+        202:
+          description: Accepted
+        404:
+          description: Domain Not Found
+  /delete/{questionId}:
+    delete:
+      description: Delete a specific question of id questionId.
+      parameters:
+      - in: path
+        name: questionId
+        required: true
+        type: string
+      responses:
+        202:
+          description: Accepted
+        404:
+          description: Id not found
+  /update/{questionId}:
+    put:
+      description: Updates a question.
+      parameters:
+      - in: path
+        name: questionId
+        required: true
+        type: string
+      - in: body
+        name: Question
+        required: true
+        schema:
             type: object
-            properties:
-              questionText:
-                type: string
-                example: what is 2+2?
-              domain:
-                type: string
-                example: Maths
-              difficultyLevel:
-                type: integer
-                example: 1
-              correctOption:
-                type: object
-                properties:
-                  SingleCorrect:
-                    type: string
-                    example: 4
-              options:
-                type: object
-                properties:
-                  FirstOption:
-                    type: string
-                    example: 4
-                  SecondOption:
-                    type: string
-                    example: 3
-                  ThirdOption:
-                    type: string
-                    example: 2
-                  FourthOption:
-                    type: string
-                    example: 22
-          required: true
-      responses: 
-        201: 
-          description: Created a new question
-          examples: 
-            application/json: 
-             {
-               "status": "Success"
-             }
-        405:
-          description: Invalid Input.
+            $ref: "#/definitions/Question"
+      responses:
+        200:
+          description: OK
+        204:
+          description: No Content 
+        404:
+          description: Id not found
+          
 
               
               
