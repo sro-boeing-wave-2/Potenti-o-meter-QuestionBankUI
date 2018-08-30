@@ -10,8 +10,12 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.App" />
+<<<<<<< HEAD
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.1.1" />
     <PackageReference Include="mongocsharpdriver" Version="2.7.0" />
+=======
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="3.0.0" />
+>>>>>>> 21b6725a87dec1e3e3f65ee10049b8eaa76d3d04
   </ItemGroup>
 
 </Project>
