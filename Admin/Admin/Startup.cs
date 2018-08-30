@@ -41,10 +41,10 @@ namespace Admin
             {
                 app.UseHsts();
             }
-            
+            app.UseStaticFiles();
             app.UseSwaggerUI(c =>
             {
-                c.SwaggerEndpoint(@"E:\ProjectX\Potenti-o-meter\Admin\Admin\swagger.json", "My API V1");
+                c.SwaggerEndpoint("swagger.json", "My API V1");
             });
             
             app.UseHttpsRedirection();

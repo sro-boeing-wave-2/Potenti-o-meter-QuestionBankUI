@@ -6,24 +6,24 @@ using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 namespace Admin.Models
 {
-    public class QuestionBank
+
+    public class Question
     {
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
         public string questionId { get; set; }
-        [BsonElement("questionText")]
-        public string questionText { get; set; }
         [BsonElement("domain")]
         public string domain { get; set; }
-        [BsonRequired]
-        public List<Options> OptionList { get; set; }
         [BsonElement("difficultyLevel")]
         public int difficultyLevel { get; set; }
         [BsonElement("conceptTags")]
         public string[] conceptTags;
-        [BsonElement("correctOptionList")]
-        public List<correctOption> correctOptionList { get; set; }
+        [BsonElement("questionType")]
+        public string questionType { get; set; }
+        [BsonElement("questionStructure")]
+        public IQuestionStructure questionStructure { get; set; }
     }
+
     public class Options
     {
         [BsonId]
@@ -38,5 +38,58 @@ namespace Admin.Models
         public string id { get; set; }
         [BsonElement]
         public string CorrectOption { get; set; }
+    }
+
+    public interface IQuestionStructure
+    {
+        
+    }
+
+    public class MCQType : IQuestionStructure
+    {
+        [BsonId]
+        public string id { get; set; }
+        [BsonElement("questionText")]
+        public string questionText { get; set; }
+        [BsonElement("correctOption")]
+        public string correctOption { get; set; }
+        [BsonRequired]
+        public List<Options> OptionList { get; set; }
+    }
+
+    public class MMCQType : IQuestionStructure
+    {
+        [BsonId]
+        public string id { get; set; }
+        [BsonElement("questionText")]
+        public string questionText { get; set; }
+        [BsonElement("correctOptionList")]
+        public List<correctOption> correctOptionList { get; set; }
+        [BsonRequired]
+        public List<Options> OptionList { get; set; }
+    }
+
+    public class fillBlanks : IQuestionStructure
+    {
+        [BsonId]
+        public string id { get; set; }
+        [BsonElement("questionText")]
+        public string questionText { get; set; }
+        [BsonElement("correctResponse")]
+        public string correctResponse { get; set; }
+        [BsonRequired]
+        public string Input { get; set; }
+    }
+
+    public class trueFalse : IQuestionStructure
+    {
+        [BsonId]
+        public string id { get; set; }
+        [BsonElement("questionText")]
+        public string questionText { get; set; }
+        [BsonElement("correctOption")]
+        public string correctOption { get; set; }
+        [BsonRequired]
+        public List<Options> OptionList { get; set; }
     }
 }
