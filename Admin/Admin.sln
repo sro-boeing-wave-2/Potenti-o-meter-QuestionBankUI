@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27703.2042
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Admin", "Admin\Admin.csproj", "{F9C03C75-C846-497D-8A66-C0A4FC575832}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Admin", "Admin\Admin.csproj", "{F9C03C75-C846-497D-8A66-C0A4FC575832}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "QuestionBankApiUT", "QuestionBankApiUT\QuestionBankApiUT.csproj", "{A5694C9D-4315-4549-84EA-12419AB7B53D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{F9C03C75-C846-497D-8A66-C0A4FC575832}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F9C03C75-C846-497D-8A66-C0A4FC575832}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F9C03C75-C846-497D-8A66-C0A4FC575832}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A5694C9D-4315-4549-84EA-12419AB7B53D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A5694C9D-4315-4549-84EA-12419AB7B53D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A5694C9D-4315-4549-84EA-12419AB7B53D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A5694C9D-4315-4549-84EA-12419AB7B53D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
