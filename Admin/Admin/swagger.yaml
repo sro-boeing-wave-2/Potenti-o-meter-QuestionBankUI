@@ -1,5 +1,6 @@
 swagger: "2.0"
 info:
+  version: "3.0"
   title: Admin
   description: The master control for the entire project.
 definitions:
@@ -55,56 +56,7 @@ paths:
               $ref: '#/definitions/Question'
         404:
           description: Not Found
-          content:
-            application/json:
-              schema:
-                $ref: '#/definitions/Question'
-  /questions/{difficultyLevel}:
-    get:
-      description: Gets all the question of specific difficulty.
-      parameters:
-      - in: path
-        name: difficultyLevel
-        required: true
-        type: integer
-        minimum: 1
-      responses:
-        200:
-          description: OK
-          schema:
-            type: array
-            items:
-              $ref: '#/definitions/Question'
-        404:
-          description: Not Found
-          content:
-            application/json:
-              schema:
-                $ref: '#/definitions/Question'
-  /questions/{domain}:
-    get:
-      description: Gets all the question of specific domain.
-      parameters:
-      - in: path
-        name: domain
-        required: true
-        type: string
-        minimum: null
-      responses:
-        200:
-          description: OK
-          schema:
-            type: array
-            items:
-              $ref: '#/definitions/Question'
-        404:
-          description: Not Found
-          content:
-            application/json:
-              schema:
-                $ref: '#/definitions/Question'
-  /add:
-   post:
+    post:
       description: Adds a new question.
       parameters:
       - in: body
@@ -140,7 +92,43 @@ paths:
           description: Created
         204:
           description: No Content
-  /delete/{domain}:
+  /questions/difficulty/{difficultyLevel}:
+    get:
+      description: Gets all the question of specific difficulty.
+      parameters:
+      - in: path
+        name: difficultyLevel
+        required: true
+        type: integer
+        minimum: 1
+      responses:
+        200:
+          description: OK
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Question'
+        404:
+          description: Not Found
+  /questions/domain/{domain}:
+    get:
+      description: Gets all the question of specific domain.
+      parameters:
+      - in: path
+        name: domain
+        required: true
+        type: string
+        minimum: 1
+      responses:
+        200:
+          description: OK
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Question'
+        404:
+          description: Not Found
+  /delete/domain/{domain}:
     delete:
       description: Delete all the question of specific domain.
       parameters:
@@ -153,7 +141,7 @@ paths:
           description: Accepted
         404:
           description: Domain Not Found
-  /delete/{questionId}:
+  /delete/id/{questionId}:
     delete:
       description: Delete a specific question of id questionId.
       parameters:
