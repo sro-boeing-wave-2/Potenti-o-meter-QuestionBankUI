@@ -11,6 +11,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Swashbuckle.AspNetCore.Swagger;
+using YamlDotNet.Serialization;
 
 namespace Admin
 {
@@ -40,6 +41,12 @@ namespace Admin
             {
                 app.UseHsts();
             }
+            
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint(@"E:\ProjectX\Potenti-o-meter\Admin\Admin\swagger.json", "My API V1");
+            });
+            
             app.UseHttpsRedirection();
             app.UseMvc();
         }
