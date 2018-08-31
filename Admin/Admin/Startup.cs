@@ -12,6 +12,8 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Swashbuckle.AspNetCore.Swagger;
 using YamlDotNet.Serialization;
+using Admin.Models;
+using Admin.Services;
 
 namespace Admin
 {
@@ -28,6 +30,13 @@ namespace Admin
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services.Configure<Settings>(Options =>
+            {
+                Options.ConnectionString = Configuration.GetSection("MongoConnection:ConnectionString").Value;
+                Options.Database = Configuration.GetSection("MongoConnection:Database").Value;
+            });
+            services.AddTransient<IQuestionServices, QuestionServices>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

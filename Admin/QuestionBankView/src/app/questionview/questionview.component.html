@@ -1,0 +1,18 @@
+<mat-form-field>
+  List length:
+  <input matInput [(ngModel)]="length">
+</mat-form-field>
+<mat-form-field>
+  Page size:
+  <input matInput [(ngModel)]="pageSize">
+</mat-form-field>
+
+<mat-grid-list cols="6" rowHeight="2:1">
+  <mat-grid-tile>Question Text</mat-grid-tile>
+  <mat-grid-tile>Options</mat-grid-tile>
+  <mat-grid-tile>Correct Answer</mat-grid-tile>
+  <mat-grid-tile>Difficulty Level</mat-grid-tile>
+  <mat-grid-tile>Domain</mat-grid-tile>
+  <mat-grid-tile>Concept Tags</mat-grid-tile>
+</mat-grid-list>
+

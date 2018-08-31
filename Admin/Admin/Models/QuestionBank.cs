@@ -4,43 +4,35 @@ using System.Linq;
 using System.Threading.Tasks;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
+using Newtonsoft.Json;
+
 namespace Admin.Models
 {
-
+    
+    [BsonKnownTypes(typeof(MCQType), typeof(MMCQType), typeof(trueFalse), typeof(fillBlanks))]
     public class Question
     {
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
         public string questionId { get; set; }
+
         [BsonElement("domain")]
         public string domain { get; set; }
+
         [BsonElement("difficultyLevel")]
         public int difficultyLevel { get; set; }
+
         [BsonElement("conceptTags")]
         public string[] conceptTags;
+
         [BsonElement("questionType")]
         public string questionType { get; set; }
-        public Question()
+
+        public override string ToString()
         {
-            if (questionType == "MCQ")
-            {
-                questionStructure = new MCQType();
-            }
-            else if (questionType == "MMCQ")
-            {
-                questionStructure = new MMCQType();
-            }
-            else if (questionType == "TrueFalse")
-            {
-                questionStructure = new trueFalse();
-            }
-            else
-            {
-                questionStructure = new fillBlanks();
-            }
+            return JsonConvert.SerializeObject(this);
         }
-        [BsonElement("questionStructure")]
-        public IQuestionStructure questionStructure { get; set; }
+     
     }
 
     public class Options
@@ -59,15 +51,9 @@ namespace Admin.Models
         public string CorrectOption { get; set; }
     }
 
-    public interface IQuestionStructure
+    [BsonDiscriminator("MCQType")]
+    public class MCQType : Question
     {
-        
-    }
-
-    public class MCQType : IQuestionStructure
-    {
-        [BsonId]
-        public string id { get; set; }
         [BsonElement("questionText")]
         public string questionText { get; set; }
         [BsonElement("correctOption")]
@@ -76,38 +62,41 @@ namespace Admin.Models
         public List<Options> OptionList { get; set; }
     }
 
-    public class MMCQType : IQuestionStructure
+    [BsonDiscriminator("MMCQType")]
+    public class MMCQType : Question
     {
-        [BsonId]
-        public string id { get; set; }
         [BsonElement("questionText")]
         public string questionText { get; set; }
+        
         [BsonElement("correctOptionList")]
         public List<correctOption> correctOptionList { get; set; }
+        
         [BsonRequired]
         public List<Options> OptionList { get; set; }
     }
 
-    public class fillBlanks : IQuestionStructure
+    [BsonDiscriminator("fillBlanks")]
+    public class fillBlanks : Question
     {
-        [BsonId]
-        public string id { get; set; }
-        [BsonElement("questionText")]
-        public string questionText { get; set; }
-        [BsonElement("correctResponse")]
-        public string correctResponse { get; set; }
-        [BsonRequired]
-        public string Input { get; set; }
+       [BsonElement("questionText")]
+       public string questionText { get; set; }
+       
+       [BsonElement("correctResponse")]
+       public string correctResponse { get; set; }
+       
+       [BsonRequired]
+       public string Input { get; set; }
     }
 
-    public class trueFalse : IQuestionStructure
-    {
-        [BsonId]
-        public string id { get; set; }
+    [BsonDiscriminator("trueFalse")]
+    public class trueFalse : Question
+    {        
         [BsonElement("questionText")]
         public string questionText { get; set; }
+        
         [BsonElement("correctOption")]
         public string correctOption { get; set; }
+        
         [BsonRequired]
         public List<Options> OptionList { get; set; }
     }

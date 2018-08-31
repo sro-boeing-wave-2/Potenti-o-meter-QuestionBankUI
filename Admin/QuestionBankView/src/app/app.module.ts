@@ -13,15 +13,18 @@ import {
   MatSelectModule,
   MatButtonModule,
   MatSlideToggleModule,
-  MatGridListModule
+  MatGridListModule,
+  MatTableModule
 } from '@angular/material';
 import { AppComponent, DialogDataExampleDialog } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { QuestionviewComponent } from './questionview/questionview.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    DialogDataExampleDialog
+    DialogDataExampleDialog,
+    QuestionviewComponent
   ],
   imports: [
     BrowserModule,
@@ -33,7 +36,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     MatDialogModule,
     MatInputModule,
     MatSelectModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    MatGridListModule,
+    MatTableModule
   ],
   providers: [],
   bootstrap: [AppComponent],
