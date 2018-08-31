@@ -87,11 +87,6 @@ export class DialogDataExampleDialog {
       var csvRecord: CSVRecord = new CSVRecord();
 
       csvRecord.questionText = data[0].trim();
-      csvRecord.firstoption = data[1].trim();
-      csvRecord.secondoption = data[2].trim();
-      csvRecord.thirdoption = data[3].trim();
-      csvRecord.fourthoption = data[4].trim();
-      console.log(csvRecord);
       for(let j=1;j<5;j++)
       {
         csvRecord.options.push(data[j].trim());
@@ -120,18 +115,9 @@ export class DialogDataExampleDialog {
 export class CSVRecord{
 
   public questionText: any;
-  public firstoption: any;
-  public secondoption: any;
-  public thirdoption: any;
-  public options: string[];
-  public fourthoption: any;
+  public options = [];
   public correctanswer: any;
   public difficultylevel: any;
   public domain: any;
   public concepttag: any;
-
-  constructor()
-  {
-
-  }
 }
