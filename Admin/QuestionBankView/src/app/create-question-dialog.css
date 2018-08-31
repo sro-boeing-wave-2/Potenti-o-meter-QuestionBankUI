@@ -1,0 +1,22 @@
+#dialog {
+  width: 600px;
+  height: 400px;
+}
+
+#form {
+  width: 25%;
+  height: 20%;
+  margin: auto;
+}
+#select {
+  margin: auto;
+}
+
+#input {
+  float: right;
+}
+
+.QuestionText {
+  width: 100%;
+}
+
