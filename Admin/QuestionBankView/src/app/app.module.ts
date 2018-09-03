@@ -1,10 +1,11 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 import {
   MatCardModule,
   MatDialogModule,
+  MatPaginatorModule,
   MatToolbarModule,
   MatFormFieldModule,
   MatChipsModule,
@@ -12,6 +13,7 @@ import {
   MatIconModule,
   MatSelectModule,
   MatButtonModule,
+  MatProgressSpinnerModule,
   MatSlideToggleModule,
   MatGridListModule,
   MatTableModule
@@ -19,16 +21,26 @@ import {
 import { AppComponent, DialogDataExampleDialog } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { QuestionviewComponent } from './questionview/questionview.component';
+import { QuestionService } from '../service/question.service';
+import { HttpModule } from '@angular/http';
+import { HttpClient } from 'selenium-webdriver/http';
+import { HttpClientModule } from '@angular/common/http';
+import { AddDialogComponent } from './dialogs/add/add.dialog.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     DialogDataExampleDialog,
-    QuestionviewComponent
+    QuestionviewComponent,
+    AddDialogComponent
   ],
   imports: [
     BrowserModule,
     CommonModule,
+    HttpModule,
+    HttpClientModule,
+    MatProgressSpinnerModule,
+    MatPaginatorModule,
     FormsModule,
     MatIconModule,
     MatToolbarModule,
@@ -40,8 +52,8 @@ import { QuestionviewComponent } from './questionview/questionview.component';
     MatGridListModule,
     MatTableModule
   ],
-  providers: [],
+  providers: [QuestionService],
   bootstrap: [AppComponent],
-  entryComponents: [DialogDataExampleDialog]
+  entryComponents: [DialogDataExampleDialog, AddDialogComponent]
 })
 export class AppModule { }

@@ -1,6 +1,7 @@
 import { Component, Inject, ViewChild } from '@angular/core';
 import {MatDialog, MAT_DIALOG_DATA} from '@angular/material';
 import { ListRange } from '@angular/cdk/collections';
+import { QuestionService } from '../service/question.service';
 
 export interface QuestionType {
   value: string;
@@ -13,11 +14,12 @@ export interface QuestionType {
 })
 export class AppComponent {
   title = 'QuestionBankView';
+  public static dialogRef;
   @ViewChild('fileImportInput') fileImportInput: any;
   constructor(public dialog: MatDialog) {}
 
   openDialog() {
-    let dialogRef = this.dialog.open(DialogDataExampleDialog, {
+    AppComponent.dialogRef = this.dialog.open(DialogDataExampleDialog, {
       disableClose: true
     });
   }
@@ -28,7 +30,8 @@ export class AppComponent {
   styleUrls: ['create-question-dialog.css']
 })
 export class DialogDataExampleDialog {
-  constructor(@Inject(MAT_DIALOG_DATA) public data: any) {}
+  constructor(@Inject(MAT_DIALOG_DATA) public data: any, private _questionService: QuestionService) {}
+  selectedOption: string;
   Questions: QuestionType[] = [
     {value: 'Multiple Choice Question'},
     {value: 'Multiple Answer Question'},
@@ -38,6 +41,19 @@ export class DialogDataExampleDialog {
   // public trueFalse = "True False";
   @ViewChild('fileImportInput') fileImportInput: any;
   public csvRecords: any[] = [];
+  public dataArr = []
+
+  close() {
+    AppComponent.dialogRef.close();
+  }
+  Submit() {
+    AppComponent.dialogRef.close();
+    console.log(this.selectedOption);
+    if(this.dataArr != null && this.selectedOption != null)
+    {
+    this._questionService.postQuestions(this.dataArr).subscribe(result => console.log(result.statusText));
+    }
+  }
 
   fileChangeListener($event: any): void {
 
@@ -79,7 +95,6 @@ export class DialogDataExampleDialog {
     }
 
   getDataRecordsArrayFromCSVFile(csvRecordsArray: any, headerLength: any) {
-    var dataArr = []
     for (let i = 1; i < csvRecordsArray.length; i++) {
     let data = csvRecordsArray[i].split(',');
     if (data.length == headerLength) {
@@ -95,15 +110,16 @@ export class DialogDataExampleDialog {
       csvRecord.difficultylevel = data[6].trim();
       csvRecord.domain = data[7].trim();
       csvRecord.concepttag = data[8].trim();
+      csvRecord.questionType = this.selectedOption;
       console.log(csvRecord);
-      dataArr.push(csvRecord);
+      this.dataArr.push(csvRecord);
       }
     else
     {
       alert("Number of fields in Question number {i} is not equal to number of fields in header");
     }
       }
-    return dataArr;
+    return this.dataArr;
   }
 
   fileReset() {
@@ -116,8 +132,9 @@ export class CSVRecord{
 
   public questionText: any;
   public options = [];
+  public concepttag: any;
   public correctanswer: any;
   public difficultylevel: any;
   public domain: any;
-  public concepttag: any;
+  public questionType: any;
 }

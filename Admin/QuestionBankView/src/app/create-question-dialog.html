@@ -1,4 +1,9 @@
 <section id="dialog">
+  <section id="close-button">
+    <button (click)="close()" mat-icon-button md-dialog-close>
+      <mat-icon>close</mat-icon>
+    </button>
+  </section>
   <section id="form">
     <mat-form-field id="select">
       <mat-select [(ngModel)]="selectedOption" placeholder="Question type">
@@ -11,8 +16,15 @@
       <input matInput placeholder="Difficulty level" type="number">
     </mat-form-field> -->
   </section>
-  <section id="import area">
-    <input type="file" #fileImportInput name="File Upload" id="txtFileUpload" (change)="fileChangeListener($event)" accept=".csv" />
+  <div class="fileDropTarget">
+    <div>
+      <input type="file" #fileImportInput name="File Upload" id="txtFileUpload" (change)="fileChangeListener($event)" accept=".csv" multiple id="inputAddFiles" />
+    </div>
+  </div>
+  <section>
+    <button id="CreateQuestion" mat-raised-button color="accent" (click)="Submit()">
+      Submit
+    </button>
   </section>
   <!-- <div *ngFor="let csvData of csvRecords;let i = index;">
     {{csvData.questionText}}
