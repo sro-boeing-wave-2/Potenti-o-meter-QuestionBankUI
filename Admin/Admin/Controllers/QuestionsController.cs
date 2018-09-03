@@ -35,17 +35,32 @@ namespace Admin.Controllers
                 
             }
 
-            //if (question.questionType == "MMCQType")
-            //{
-            //    var questionAsJsonString = JsonConvert.SerializeObject(question);
-            //    MMCQType mmcqType = JsonConvert.DeserializeObject<MMCQType>(questionAsJsonString);
-            //    _questionService.AddQuestion(mmcqType);
-            //}    
-            if (question.questionType == "MCQType")
+            
+            var questionAsJsonString = JsonConvert.SerializeObject(question);
+            string type = question.questionType;
+            switch (type)
             {
-                var questionAsJsonString = JsonConvert.SerializeObject(question);
-                MCQType mcqType = JsonConvert.DeserializeObject<MCQType>(questionAsJsonString);
-                _questionService.AddQuestion(mcqType);
+                case "MCQType":     
+                        MCQType mcqType = JsonConvert.DeserializeObject<MCQType>(questionAsJsonString);
+                        _questionService.AddQuestion(mcqType);
+                    break;
+
+                case "MMCQType":
+                    
+                    MMCQType mmcqType = JsonConvert.DeserializeObject<MMCQType>(questionAsJsonString);
+                    _questionService.AddQuestion(mmcqType);
+                    break;
+
+                case "FillBlanks":
+
+                    FillBlanks fillBlanks = JsonConvert.DeserializeObject<FillBlanks>(questionAsJsonString);
+                    _questionService.AddQuestion(fillBlanks);
+                    break;
+
+                default:
+                    TrueFalse trueFalse = JsonConvert.DeserializeObject<TrueFalse>(questionAsJsonString);
+                    _questionService.AddQuestion(trueFalse);
+                    break;
             }
 
         }
@@ -82,6 +97,45 @@ namespace Admin.Controllers
             }
 
             return Ok(question);
+        }
+        [HttpPut("{id}")]
+        public IActionResult PutNote([FromRoute] string id, [FromBody] dynamic question)
+        {
+           
+            var questionAsJsonString = JsonConvert.SerializeObject(question);
+            string type = question.questionType;
+            switch (type)
+            {
+                case "MCQType":
+                    MCQType mcqType = JsonConvert.DeserializeObject<MCQType>(questionAsJsonString);
+                    mcqType.QuestionId = id;
+                    _questionService.EditQuestion(id, mcqType);
+                    break;
+
+                case "MMCQType":
+
+                    MMCQType mmcqType = JsonConvert.DeserializeObject<MMCQType>(questionAsJsonString);
+                    mmcqType.QuestionId = id;
+                    _questionService.EditQuestion(id, mmcqType);
+                    break;
+
+                case "FillBlanks":
+
+                    FillBlanks fillBlanks = JsonConvert.DeserializeObject<FillBlanks>(questionAsJsonString);
+                    fillBlanks.QuestionId = id;
+                    _questionService.EditQuestion(id, fillBlanks);
+                    break;
+
+                default:
+                    TrueFalse trueFalse = JsonConvert.DeserializeObject<TrueFalse>(questionAsJsonString);
+                    trueFalse.QuestionId = id;
+                    _questionService.EditQuestion(id, trueFalse);
+                    break;
+            }
+
+
+
+            return Ok();
         }
     }
 }

@@ -7,6 +7,7 @@ using Admin.Models;
 using MongoDB.Bson;
 using MongoDB.Driver;
 using Admin.Data;
+using Newtonsoft.Json;
 namespace Admin.Services
 {
     public class QuestionServices: IQuestionServices
@@ -23,6 +24,7 @@ namespace Admin.Services
         
         public void AddQuestion(Question question)
         {
+            
             _context.Questions.InsertOne(question);
         }
 
@@ -38,13 +40,18 @@ namespace Admin.Services
             return actionResult.IsAcknowledged && actionResult.DeletedCount > 0;
         }
 
-        //public void EditQuestion(string id, Question question)
-        //{
-        //    Console.WriteLine(question);
-        //    var filter = Builders<Question>.Filter.Eq(x => x.questionId, id);
-        //    var update = Builders<Question>.Update.Set(x => x.domain, question.domain).Set(x => x.questionType, question.questionType).Set(x => x.);
-        //    var result = _context.Questions.UpdateOne(filter, update);
+        public void EditQuestion(string id, Question question)
+        {
+            
+           
+            var filter = Builders<Question>.Filter.Eq(x => x.QuestionId, id);
 
-        //}
+
+            var result = _context.Questions.FindOneAndReplace(filter, question);
+
+
+            // var result = _context.Questions.UpdateOne(filter, update);
+
+        }
     }
 }

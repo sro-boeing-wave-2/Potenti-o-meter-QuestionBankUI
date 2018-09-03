@@ -9,7 +9,7 @@ using Newtonsoft.Json;
 namespace Admin.Models
 {
 
-    [BsonKnownTypes(typeof(MCQType), typeof(MMCQType), typeof(trueFalse), typeof(fillBlanks))]
+    [BsonKnownTypes(typeof(MCQType), typeof(MMCQType), typeof(FillBlanks), typeof(TrueFalse))]
     public class Question
     {
         [BsonId]
@@ -49,16 +49,13 @@ namespace Admin.Models
     public class Options
     {
 
-        [BsonId]
-        public string id;
        [BsonElement]
         public string Option { get; set; }
        
     }
     public class correctOption
     {
-        [BsonId]
-        public string id;
+       
         [BsonElement]
         public string CorrectOption { get; set; }
     }
@@ -91,7 +88,7 @@ namespace Admin.Models
     }
 
     [BsonDiscriminator("fillBlanks")]
-    public class fillBlanks : Question
+    public class FillBlanks : Question
     {
        [BsonElement("questionText")]
        public string questionText { get; set; }
@@ -104,7 +101,7 @@ namespace Admin.Models
     }
 
     [BsonDiscriminator("trueFalse")]
-    public class trueFalse : Question
+    public class TrueFalse : Question
     {        
         [BsonElement("questionText")]
         public string questionText { get; set; }

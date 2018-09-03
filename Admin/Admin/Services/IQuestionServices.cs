@@ -11,6 +11,6 @@ namespace Admin.Services
         void AddQuestion(Question question);
         bool DeleteQuestionById(string id);
         bool DeleteQuestionByDomain(string domain);
-        //void EditQuestion(int id, Question question);
+        void EditQuestion(string id, Question question);
     }
 }
