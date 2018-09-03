@@ -14,19 +14,23 @@ namespace Admin.Models
     {
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
-        public string questionId { get; set; }
+        public string QuestionId { get; set; }
 
         [BsonElement("domain")]
-        public string domain { get; set; }
+        [JsonProperty("domain")]
+        public string Domain { get; set; }
 
         [BsonElement("difficultyLevel")]
-        public int difficultyLevel { get; set; }
+        [JsonProperty("difficultyLevel")]
+        public int DifficultyLevel { get; set; }
 
         [BsonElement("conceptTags")]
-        public string[] conceptTags;
+        [JsonProperty("conceptTags")]
+        public string[] ConceptTags;
 
         [BsonElement("questionType")]
-        public string questionType { get; set; }
+        [JsonProperty("questionType")]
+        public string QuestionType { get; set; }
 
         //Question()
         //{ if(questionType=="MMCQType")
@@ -34,25 +38,27 @@ namespace Admin.Models
         //        MMCQType mmcq = new MMCQType();
         //    }
         //}
-        //public override string ToString()
-        //{
-        //    return JsonConvert.SerializeObject(this);
-        //}
-     
+
+        public override string ToString()
+        {
+            return JsonConvert.SerializeObject(this);
+        }
+
     }
 
     public class Options
     {
+
         [BsonId]
-        public string id { get; set; }
-        [BsonElement]
+        public string id;
+       [BsonElement]
         public string Option { get; set; }
        
     }
     public class correctOption
     {
         [BsonId]
-        public string id { get; set; }
+        public string id;
         [BsonElement]
         public string CorrectOption { get; set; }
     }
@@ -72,12 +78,15 @@ namespace Admin.Models
     public class MMCQType : Question
     {
         [BsonElement("questionText")]
-        public string questionText { get; set; }
+        [JsonProperty("questionText")]
+        public string QuestionText { get; set; }
         
         [BsonElement("correctOptionList")]
-        public List<correctOption> correctOptionList { get; set; }
+        [JsonProperty("correctOptionList")]
+        public List<correctOption> CorrectOptionList { get; set; }
         
         [BsonRequired]
+        [JsonProperty("optionList")]
         public List<Options> OptionList { get; set; }
     }
 

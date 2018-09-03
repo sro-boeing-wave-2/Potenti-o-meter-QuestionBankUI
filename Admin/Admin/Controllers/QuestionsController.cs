@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Admin.Services;
 using Admin.Models;
+using Newtonsoft.Json;
+
 namespace Admin.Controllers
 {
     [Route("api/[controller]")]
@@ -17,34 +19,34 @@ namespace Admin.Controllers
         {
             _questionService = questionService;
             
-            MCQType mcqType = new MCQType();
-            mcqType.conceptTags = new string[] { "addition", "substraction" };
-            mcqType.correctOption="4";
-            mcqType.domain="maths";
-            mcqType.difficultyLevel=10;
-            Options o1 = new Options();
-            o1.Option = "1";
-             Options o2 = new Options();
-            o1.Option = "4";
-            mcqType.OptionList = new List<Options>();
-            mcqType.OptionList.Add(o1);
-            mcqType.OptionList.Add(o2);
-            mcqType.questionText="2+2=?";
+            //MCQType mcqType = new MCQType();
+            //mcqType.conceptTags = new string[] { "addition", "substraction" };
+            //mcqType.correctOption="4";
+            //mcqType.domain="maths";
+            //mcqType.difficultyLevel=10;
+            //Options o1 = new Options();
+            //o1.Option = "1";
+            // Options o2 = new Options();
+            //o1.Option = "4";
+            //mcqType.OptionList = new List<Options>();
+            //mcqType.OptionList.Add(o1);
+            //mcqType.OptionList.Add(o2);
+            //mcqType.questionText="2+2=?";
             
-            MMCQType mmcqType= new MMCQType();
-            mmcqType.conceptTags = new string[] { "addition" , "substraction" };
-            correctOption c1 = new correctOption();
-            c1.CorrectOption="2";
-            correctOption c2 = new correctOption();
-            c2.CorrectOption="4";
-            mmcqType.correctOptionList = new List<correctOption>();
-            mmcqType.correctOptionList.Add(c1);
-            mmcqType.correctOptionList.Add(c2);
-            mmcqType.difficultyLevel=9;
-            mmcqType.domain="maths";
-            mmcqType.questionText="even number";
-            
-           // Console.WriteLine("Adding Questions");
+            //MMCQType mmcqType= new MMCQType();
+            //mmcqType.conceptTags = new string[] { "addition" , "substraction" };
+            //correctOption c1 = new correctOption();
+            //c1.CorrectOption="2";
+            //correctOption c2 = new correctOption();
+            //c2.CorrectOption="4";
+            //mmcqType.correctOptionList = new List<correctOption>();
+            //mmcqType.correctOptionList.Add(c1);
+            //mmcqType.correctOptionList.Add(c2);
+            //mmcqType.difficultyLevel=9;
+            //mmcqType.domain="maths";
+            //mmcqType.questionText="even number";
+
+            //Console.WriteLine("Adding Questions");
             //_questionService.AddQuestion(mmcqType);
             //_questionService.AddQuestion(mcqType);
             //var questions = _questionService.GetAllQuestions();
@@ -58,28 +60,24 @@ namespace Admin.Controllers
             return _questionService.GetAllQuestions();
         }
 
-        //[HttpGet("domain")]
-        //public List<Question> GetByDomain(string domainchoice)
-        //{
-        //    return _questionService.GetQuestionsByDomain(domainchoice);
-        //}
-        //[HttpGet("difficultylevel")]
-        //public Task<List<Question>> GetByDifficultyLevel(int difficultylevel)
-        //{
-        //    return _questionService.GetQuestionsByDifficultyLevel(difficultylevel);
-        //}
         [HttpPost]
-        public IActionResult PostQuestion([FromBody] Question question)
+        public void PostQuestion([FromBody] dynamic question) 
         {
             if (!ModelState.IsValid)
             {
-                return BadRequest(ModelState);
+                
             }
-            _questionService.AddQuestion(question);
-            return CreatedAtAction("GetAllQuestions", new { id = question.questionId }, question);
+
+            if (question.questionType == "MMCQType")
+            {
+                var questionAsJsonString = JsonConvert.SerializeObject(question);
+                MMCQType mmcqType = JsonConvert.DeserializeObject<MMCQType>(questionAsJsonString);
+                _questionService.AddQuestion(mmcqType);
+            }            
+           
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete("id/{id}")]
         public IActionResult DeleteQuestion([FromRoute] string id)
         {
             if (!ModelState.IsValid)
@@ -95,6 +93,7 @@ namespace Admin.Controllers
 
             return Ok(question);
         }
+
         [HttpDelete("{domain}")]
         public IActionResult DeleteQuestionId([FromRoute] string domain)
         {
@@ -111,8 +110,5 @@ namespace Admin.Controllers
 
             return Ok(question);
         }
-
-
-
     }
 }

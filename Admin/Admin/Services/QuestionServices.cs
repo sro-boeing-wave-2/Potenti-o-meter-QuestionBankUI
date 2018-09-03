@@ -20,14 +20,7 @@ namespace Admin.Services
         {
             return _context.Questions.Find(x => true).ToList();
         }
-        //public List<Question> GetQuestionsByDomain(string domainchoice)
-        //{
-        //    return _context.Questions.Find(x => x.domain == domainchoice).ToList();
-        //}
-        //public async Task<List<Question>> GetQuestionsByDifficultyLevel(int difficultylevel)
-        //{
-        //    return await _context.Questions.Find(x => x.difficultyLevel == difficultylevel).ToListAsync();
-        //}
+        
         public void AddQuestion(Question question)
         {
             _context.Questions.InsertOne(question);
@@ -45,12 +38,12 @@ namespace Admin.Services
             return actionResult.IsAcknowledged && actionResult.DeletedCount > 0;
         }
 
-        //public async Task EditQuestion(int id, Question question)
+        //public void EditQuestion(string id, Question question)
         //{
         //    Console.WriteLine(question);
         //    var filter = Builders<Question>.Filter.Eq(x => x.questionId, id);
-        //    var update = Builders<Question>.Update.Set(x => x.domain, question.domain).Set(x => x.T, note.Text).Set(x => x.IsPinned, note.IsPinned).Set(x => x.Labels, note.Labels).Set(x => x.Checklists, note.Checklists);
-        //    var result = await _context.Notes.UpdateOneAsync(filter, update);
+        //    var update = Builders<Question>.Update.Set(x => x.domain, question.domain).Set(x => x.questionType, question.questionType).Set(x => x.);
+        //    var result = _context.Questions.UpdateOne(filter, update);
 
         //}
     }
