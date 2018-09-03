@@ -26,20 +26,28 @@ export class QuestionviewComponent implements OnInit {
   }
 
   addNew(issue: IMCQ) {
-    const dialogRef = this.dialog.open(AddDialogComponent, {
+    let dialogRef = this.dialog.open(AddDialogComponent, {
       data: {issue}
   });
   }
 
   selectRow(row) {
-    const dialogRef = this.dialog.open(DetailDialogComponent ,{
+    let dialogRef = this.dialog.open(DetailDialogComponent ,{
       data: {row}
     })
   }
 
-  deleteItem(i: number, row: IMCQ) {
-    const dialogRef = this.dialog.open(DeleteDialogComponent, {
-      data: {row}
+  deleteItem(row: IMCQ) {
+    var index = this.Questions.indexOf(row);
+    let dialogRef = this.dialog.open(DeleteDialogComponent, {
+      data: {index, row}
+    });
+    const sub = dialogRef.componentInstance.deletedQuestion.subscribe((result) => {
+      var index = this.Questions.indexOf(result);
+      if (index > -1) {
+        this.Questions.splice(index, 1);
+      }
+      this.dataSource.paginator = this.paginator
     });
   }
 }
