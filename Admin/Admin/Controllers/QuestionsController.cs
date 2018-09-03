@@ -19,40 +19,7 @@ namespace Admin.Controllers
         {
             _questionService = questionService;
             
-            //MCQType mcqType = new MCQType();
-            //mcqType.conceptTags = new string[] { "addition", "substraction" };
-            //mcqType.correctOption="4";
-            //mcqType.domain="maths";
-            //mcqType.difficultyLevel=10;
-            //Options o1 = new Options();
-            //o1.Option = "1";
-            // Options o2 = new Options();
-            //o1.Option = "4";
-            //mcqType.OptionList = new List<Options>();
-            //mcqType.OptionList.Add(o1);
-            //mcqType.OptionList.Add(o2);
-            //mcqType.questionText="2+2=?";
             
-            //MMCQType mmcqType= new MMCQType();
-            //mmcqType.conceptTags = new string[] { "addition" , "substraction" };
-            //correctOption c1 = new correctOption();
-            //c1.CorrectOption="2";
-            //correctOption c2 = new correctOption();
-            //c2.CorrectOption="4";
-            //mmcqType.correctOptionList = new List<correctOption>();
-            //mmcqType.correctOptionList.Add(c1);
-            //mmcqType.correctOptionList.Add(c2);
-            //mmcqType.difficultyLevel=9;
-            //mmcqType.domain="maths";
-            //mmcqType.questionText="even number";
-
-            //Console.WriteLine("Adding Questions");
-            //_questionService.AddQuestion(mmcqType);
-            //_questionService.AddQuestion(mcqType);
-            //var questions = _questionService.GetAllQuestions();
-            //Console.WriteLine($"Questions {questions.Count}");
-            //questions.ForEach(question => Console.WriteLine(question));
-
         }
         [HttpGet]
         public List<Question> Get()
@@ -68,13 +35,19 @@ namespace Admin.Controllers
                 
             }
 
-            if (question.questionType == "MMCQType")
+            //if (question.questionType == "MMCQType")
+            //{
+            //    var questionAsJsonString = JsonConvert.SerializeObject(question);
+            //    MMCQType mmcqType = JsonConvert.DeserializeObject<MMCQType>(questionAsJsonString);
+            //    _questionService.AddQuestion(mmcqType);
+            //}    
+            if (question.questionType == "MCQType")
             {
                 var questionAsJsonString = JsonConvert.SerializeObject(question);
-                MMCQType mmcqType = JsonConvert.DeserializeObject<MMCQType>(questionAsJsonString);
-                _questionService.AddQuestion(mmcqType);
-            }            
-           
+                MCQType mcqType = JsonConvert.DeserializeObject<MCQType>(questionAsJsonString);
+                _questionService.AddQuestion(mcqType);
+            }
+
         }
 
         [HttpDelete("id/{id}")]
