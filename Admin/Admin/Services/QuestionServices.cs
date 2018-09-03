@@ -20,9 +20,9 @@ namespace Admin.Services
         {
             return _context.Questions.Find(x => true).ToList();
         }
-        //public async Task<List<Question>> GetQuestionsByDomain(string domainchoice)
+        //public List<Question> GetQuestionsByDomain(string domainchoice)
         //{
-        //    return await _context.Questions.Find(x => x.domain == domainchoice).ToListAsync();
+        //    return _context.Questions.Find(x => x.domain == domainchoice).ToList();
         //}
         //public async Task<List<Question>> GetQuestionsByDifficultyLevel(int difficultylevel)
         //{
@@ -32,17 +32,19 @@ namespace Admin.Services
         {
             _context.Questions.InsertOne(question);
         }
-        //public async Task<bool> DeleteQuestionsByDomain(string domain)
-        //{
-        //    DeleteResult actionResult = await _context.Questions.DeleteManyAsync(Builders<Question>.Filter.Eq("domain", domain));
-        //    return actionResult.IsAcknowledged && actionResult.DeletedCount > 0;
-        //}
-        //public async Task<bool> DeleteQuestionById(string id)
-        //{
-        //    DeleteResult actionResult = await _context.Questions.DeleteOneAsync(Builders<Question>.Filter.Eq("questionId", id));
-        //    return actionResult.IsAcknowledged && actionResult.DeletedCount > 0;
-        //}
-        
+
+        public bool DeleteQuestionByDomain(string domain)
+        {
+            DeleteResult actionResult = _context.Questions.DeleteMany(Builders<Question>.Filter.Eq("domain", domain));
+            return actionResult.IsAcknowledged && actionResult.DeletedCount > 0;
+        }
+
+        public bool DeleteQuestionById(string id)
+        {
+            DeleteResult actionResult =  _context.Questions.DeleteOne(Builders<Question>.Filter.Eq("questionId", id));
+            return actionResult.IsAcknowledged && actionResult.DeletedCount > 0;
+        }
+
         //public async Task EditQuestion(int id, Question question)
         //{
         //    Console.WriteLine(question);

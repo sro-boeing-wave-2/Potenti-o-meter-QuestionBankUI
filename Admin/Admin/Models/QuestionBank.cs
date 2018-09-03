@@ -8,7 +8,7 @@ using Newtonsoft.Json;
 
 namespace Admin.Models
 {
-    
+
     [BsonKnownTypes(typeof(MCQType), typeof(MMCQType), typeof(trueFalse), typeof(fillBlanks))]
     public class Question
     {
@@ -28,10 +28,16 @@ namespace Admin.Models
         [BsonElement("questionType")]
         public string questionType { get; set; }
 
-        public override string ToString()
-        {
-            return JsonConvert.SerializeObject(this);
-        }
+        //Question()
+        //{ if(questionType=="MMCQType")
+        //    {
+        //        MMCQType mmcq = new MMCQType();
+        //    }
+        //}
+        //public override string ToString()
+        //{
+        //    return JsonConvert.SerializeObject(this);
+        //}
      
     }
 

@@ -44,12 +44,12 @@ namespace Admin.Controllers
             mmcqType.domain="maths";
             mmcqType.questionText="even number";
             
-            Console.WriteLine("Adding Questions");
-            _questionService.AddQuestion(mmcqType);
-            _questionService.AddQuestion(mcqType);
-            var questions = _questionService.GetAllQuestions();
-            Console.WriteLine($"Questions {questions.Count}");
-            questions.ForEach(question => Console.WriteLine(question));
+           // Console.WriteLine("Adding Questions");
+            //_questionService.AddQuestion(mmcqType);
+            //_questionService.AddQuestion(mcqType);
+            //var questions = _questionService.GetAllQuestions();
+            //Console.WriteLine($"Questions {questions.Count}");
+            //questions.ForEach(question => Console.WriteLine(question));
 
         }
         [HttpGet]
@@ -59,7 +59,7 @@ namespace Admin.Controllers
         }
 
         //[HttpGet("domain")]
-        //public Task<List<Question>> GetByDomain(string domainchoice)
+        //public List<Question> GetByDomain(string domainchoice)
         //{
         //    return _questionService.GetQuestionsByDomain(domainchoice);
         //}
@@ -78,39 +78,39 @@ namespace Admin.Controllers
             _questionService.AddQuestion(question);
             return CreatedAtAction("GetAllQuestions", new { id = question.questionId }, question);
         }
-       
-        //[HttpDelete("{id}")]
-        //public async Task<IActionResult> DeleteQuestion([FromRoute] string id)
-        //{
-        //    if (!ModelState.IsValid)
-        //    {
-        //        return BadRequest(ModelState);
-        //    }
 
-        //    var question = await _questionService.DeleteQuestionById(id);
-        //    if (question == false)
-        //    {
-        //        return NotFound();
-        //    }
+        [HttpDelete("{id}")]
+        public IActionResult DeleteQuestion([FromRoute] string id)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
 
-        //    return Ok(question);
-        //}
-        //[HttpDelete("{domain}")]
-        //public async Task<IActionResult> DeleteQuestion([FromRoute] string domain)
-        //{
-        //    if (!ModelState.IsValid)
-        //    {
-        //        return BadRequest(ModelState);
-        //    }
+            var question = _questionService.DeleteQuestionById(id);
+            if (question == false)
+            {
+                return NotFound();
+            }
 
-        //    var question = await _questionService.DeleteQuestionByDomain(domain);
-        //    if (question == false)
-        //    {
-        //        return NotFound();
-        //    }
+            return Ok(question);
+        }
+        [HttpDelete("{domain}")]
+        public IActionResult DeleteQuestionId([FromRoute] string domain)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
 
-        //    return Ok(question);
-        //}
+            var question = _questionService.DeleteQuestionByDomain(domain);
+            if (question == false)
+            {
+                return NotFound();
+            }
+
+            return Ok(question);
+        }
 
 
 
