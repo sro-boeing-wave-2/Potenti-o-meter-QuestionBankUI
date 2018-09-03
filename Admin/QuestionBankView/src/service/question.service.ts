@@ -19,4 +19,9 @@ export class QuestionService {
   {
     return this.http.post(this._url,Question);
   }
+  deletetQuestions(id, Question)
+  {
+    var appendedString = this._url+ id;
+    return this.http.post(appendedString,Question);
+  }
 }

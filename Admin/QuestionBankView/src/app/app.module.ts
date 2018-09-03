@@ -23,16 +23,19 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { QuestionviewComponent } from './questionview/questionview.component';
 import { QuestionService } from '../service/question.service';
 import { HttpModule } from '@angular/http';
-import { HttpClient } from 'selenium-webdriver/http';
 import { HttpClientModule } from '@angular/common/http';
 import { AddDialogComponent } from './dialogs/add/add.dialog.component';
+import { DetailDialogComponent } from './dialogs/detail/detail.dialog.component';
+import { DeleteDialogComponent } from './dialogs/delete/delete.dialog.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     DialogDataExampleDialog,
     QuestionviewComponent,
-    AddDialogComponent
+    AddDialogComponent,
+    DetailDialogComponent,
+    DeleteDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -54,6 +57,6 @@ import { AddDialogComponent } from './dialogs/add/add.dialog.component';
   ],
   providers: [QuestionService],
   bootstrap: [AppComponent],
-  entryComponents: [DialogDataExampleDialog, AddDialogComponent]
+  entryComponents: [DialogDataExampleDialog, AddDialogComponent, DetailDialogComponent, DeleteDialogComponent]
 })
 export class AppModule { }
