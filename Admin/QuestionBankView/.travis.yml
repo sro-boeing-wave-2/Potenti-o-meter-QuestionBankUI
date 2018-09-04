@@ -1,0 +1,20 @@
+sudo: required
+addons:
+  chrome: stable
+language: node_js
+node_js:
+  - "8"
+notifications:
+  email:
+    on_success: always
+    on_failure: always
+  slack: srboeingdotnet:GhCzs3W4Gj7eaQ2pLNwIWVCa
+mono: none
+before_script:
+  - npm install -g @angular/cli
+
+script:
+  - ng build --prod --aot
+  - ng test
+
+  
