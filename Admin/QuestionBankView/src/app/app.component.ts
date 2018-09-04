@@ -1,6 +1,5 @@
 import { Component, Inject, ViewChild } from '@angular/core';
 import {MatDialog, MAT_DIALOG_DATA} from '@angular/material';
-import { ListRange } from '@angular/cdk/collections';
 import { QuestionService } from '../service/question.service';
 
 export interface QuestionType {
@@ -33,7 +32,7 @@ export class DialogDataExampleDialog {
   constructor(@Inject(MAT_DIALOG_DATA) public data: any, private _questionService: QuestionService) {}
   selectedOption: string;
   Questions: QuestionType[] = [
-    {value: 'Multiple Choice Question'},
+    {value: 'MCQType'},
     {value: 'Multiple Answer Question'},
     {value: 'True False'},
     {value: 'Fill in the Blanks'}
@@ -42,16 +41,23 @@ export class DialogDataExampleDialog {
   @ViewChild('fileImportInput') fileImportInput: any;
   public csvRecords: any[] = [];
   public dataArr = []
+  public postData;
 
   close() {
     AppComponent.dialogRef.close();
   }
   Submit() {
     AppComponent.dialogRef.close();
-    console.log(this.selectedOption);
     if(this.dataArr != null && this.selectedOption != null)
     {
-    this._questionService.postQuestions(this.dataArr).subscribe(result => console.log(result.statusText));
+    this.dataArr.forEach(element => {
+      this._questionService.postQuestions(element).subscribe(result => {
+        if(result.statusText == "OK")
+        {
+          this.postData = element;
+        }
+      });
+    });
     }
   }
 
@@ -100,18 +106,21 @@ export class DialogDataExampleDialog {
     if (data.length == headerLength) {
 
       var csvRecord: CSVRecord = new CSVRecord();
-
       csvRecord.questionText = data[0].trim();
       for(let j=1;j<5;j++)
       {
-        csvRecord.options.push(data[j].trim());
+        var option: Options = new Options();
+        option.Option = data[j].trim();
+        csvRecord.OptionList.push(option);
       }
-      csvRecord.correctanswer = data[5].trim();
+      csvRecord.correctOption = data[5].trim();
       csvRecord.difficultylevel = data[6].trim();
       csvRecord.domain = data[7].trim();
-      csvRecord.concepttag = data[8].trim();
+      for(let k=8;k<10;k++)
+      {
+        csvRecord.ConceptTags.push(data[k].trim());
+      }
       csvRecord.questionType = this.selectedOption;
-      console.log(csvRecord);
       this.dataArr.push(csvRecord);
       }
     else
@@ -131,10 +140,14 @@ export class DialogDataExampleDialog {
 export class CSVRecord{
 
   public questionText: any;
-  public options = [];
-  public concepttag: any;
-  public correctanswer: any;
+  public OptionList = [];
+  public ConceptTags = [];
+  public correctOption: any;
   public difficultylevel: any;
   public domain: any;
   public questionType: any;
+}
+
+export class Options{
+  public Option: string ;
 }

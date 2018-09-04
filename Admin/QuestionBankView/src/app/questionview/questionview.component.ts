@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild} from '@angular/core';
+import { Component, OnInit, ViewChild, Input} from '@angular/core';
 import { QuestionService } from '../../service/question.service';
 import {MatPaginator, MatTableDataSource, MatDialog} from '@angular/material';
 import { IMCQ } from '../../service/mcq';
@@ -13,6 +13,8 @@ import { DeleteDialogComponent } from '../dialogs/delete/delete.dialog.component
 })
 export class QuestionviewComponent implements OnInit {
   public Questions = [];
+  public isDiabled: boolean = true;
+
   constructor(private _questionService: QuestionService, public dialog: MatDialog) { }
   displayedColumns: string[] = ['position', 'name', 'weight', 'symbol', 'actions'];
   dataSource = new MatTableDataSource<IMCQ>(this.Questions);
@@ -21,8 +23,7 @@ export class QuestionviewComponent implements OnInit {
 
   ngOnInit() {
     this._questionService.getQuestions()
-    .subscribe(data => {this.Questions.push(...data.json()); this.dataSource.paginator = this.paginator;});
-    console.log(this.Questions);
+    .subscribe(data => {this.Questions.push(...data.json()); this.dataSource.paginator = this.paginator;});;
   }
 
   addNew(issue: IMCQ) {
@@ -32,9 +33,21 @@ export class QuestionviewComponent implements OnInit {
   }
 
   selectRow(row) {
+    var isDiabled = this.isDiabled;
     let dialogRef = this.dialog.open(DetailDialogComponent ,{
-      data: {row}
+      data: {row, isDiabled}
     })
+    console.log(row);
+  }
+
+  startEdit(row) {
+    var isDiabled =!this.isDiabled;
+    let dialogRef = this.dialog.open(DetailDialogComponent ,{
+      data: {row, isDiabled}
+    })
+    const sub = dialogRef.componentInstance.editedQuestion.subscribe((result) => {
+      this.dataSource.paginator = this.paginator
+    });
   }
 
   deleteItem(row: IMCQ) {

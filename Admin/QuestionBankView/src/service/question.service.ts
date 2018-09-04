@@ -24,4 +24,8 @@ export class QuestionService {
     var appendedString = this._url + "id/" + id;
     return this.http.delete(appendedString);
   }
+  editQuestions(id, Question){
+    var appendedString = this._url + id;
+    return this.http.put(appendedString,Question)
+  }
 }

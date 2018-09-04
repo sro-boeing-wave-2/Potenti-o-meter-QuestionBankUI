@@ -45,6 +45,7 @@ import { DeleteDialogComponent } from './dialogs/delete/delete.dialog.component'
     MatProgressSpinnerModule,
     MatPaginatorModule,
     FormsModule,
+    MatChipsModule,
     MatIconModule,
     MatToolbarModule,
     MatButtonModule,
