@@ -7,10 +7,10 @@ namespace Admin.Services
 {
     public interface IQuestionServices
     {
-        List<Question> GetAllQuestions();
-        void AddQuestion(Question question);
-        bool DeleteQuestionById(string id);
-        bool DeleteQuestionByDomain(string domain);
-        void EditQuestion(string id, Question question);
+        Task<List<Question>> GetAllQuestions();
+        Task<Question> AddQuestion(Question question);
+        Task<bool> DeleteQuestionById(string id);
+        Task<bool> DeleteQuestionByDomain(string domain);
+        Task EditQuestion(string id, Question question);
     }
 }

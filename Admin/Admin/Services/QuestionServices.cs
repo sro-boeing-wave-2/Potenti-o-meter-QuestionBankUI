@@ -17,37 +17,38 @@ namespace Admin.Services
         {
             _context = new QuestionContext(settings);
         }
-        public List<Question> GetAllQuestions()
+        public async Task<List<Question>> GetAllQuestions()
         {
-            return _context.Questions.Find(x => true).ToList();
+            return await _context.Questions.Find(x => true).ToListAsync();
         }
         
-        public void AddQuestion(Question question)
+        public async Task<Question> AddQuestion(Question question)
         {
             
-            _context.Questions.InsertOne(question);
+            await _context.Questions.InsertOneAsync(question);
+            return question;
         }
 
-        public bool DeleteQuestionByDomain(string domain)
+        public async Task<bool> DeleteQuestionByDomain(string domain)
         {
-            DeleteResult actionResult = _context.Questions.DeleteMany(Builders<Question>.Filter.Eq("domain", domain));
+            DeleteResult actionResult = await _context.Questions.DeleteManyAsync(Builders<Question>.Filter.Eq("domain", domain));
             return actionResult.IsAcknowledged && actionResult.DeletedCount > 0;
         }
 
-        public bool DeleteQuestionById(string id)
+        public async Task<bool> DeleteQuestionById(string id)
         {
-            DeleteResult actionResult =  _context.Questions.DeleteOne(Builders<Question>.Filter.Eq("questionId", id));
+            DeleteResult actionResult = await _context.Questions.DeleteOneAsync(Builders<Question>.Filter.Eq("QuestionId", id));
             return actionResult.IsAcknowledged && actionResult.DeletedCount > 0;
         }
 
-        public void EditQuestion(string id, Question question)
+        public async Task EditQuestion(string id, Question question)
         {
             
            
             var filter = Builders<Question>.Filter.Eq(x => x.QuestionId, id);
 
 
-            var result = _context.Questions.FindOneAndReplace(filter, question);
+            var result = await _context.Questions.FindOneAndReplaceAsync(filter, question);
 
 
             // var result = _context.Questions.UpdateOne(filter, update);

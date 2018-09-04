@@ -22,17 +22,17 @@ namespace Admin.Controllers
             
         }
         [HttpGet]
-        public List<Question> Get()
+        public async Task<List<Question>> Get()
         {
-            return _questionService.GetAllQuestions();
+            return await _questionService.GetAllQuestions();
         }
 
         [HttpPost]
-        public void PostQuestion([FromBody] dynamic question) 
+        public async Task<IActionResult> PostQuestion([FromBody] dynamic question) 
         {
             if (!ModelState.IsValid)
             {
-                
+                return BadRequest(ModelState);
             }
 
             
@@ -42,38 +42,38 @@ namespace Admin.Controllers
             {
                 case "MCQType":     
                         MCQType mcqType = JsonConvert.DeserializeObject<MCQType>(questionAsJsonString);
-                        _questionService.AddQuestion(mcqType);
+                       await _questionService.AddQuestion(mcqType);
                     break;
 
                 case "MMCQType":
                     
                     MMCQType mmcqType = JsonConvert.DeserializeObject<MMCQType>(questionAsJsonString);
-                    _questionService.AddQuestion(mmcqType);
+                   await _questionService.AddQuestion(mmcqType);
                     break;
 
                 case "FillBlanks":
 
                     FillBlanks fillBlanks = JsonConvert.DeserializeObject<FillBlanks>(questionAsJsonString);
-                    _questionService.AddQuestion(fillBlanks);
+                    await _questionService.AddQuestion(fillBlanks);
                     break;
-
+                    
                 default:
                     TrueFalse trueFalse = JsonConvert.DeserializeObject<TrueFalse>(questionAsJsonString);
-                    _questionService.AddQuestion(trueFalse);
+                    await _questionService.AddQuestion(trueFalse);
                     break;
             }
-
+            return Ok();
         }
 
         [HttpDelete("id/{id}")]
-        public IActionResult DeleteQuestion([FromRoute] string id)
+        public async Task<IActionResult> DeleteQuestionId([FromRoute] string id)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            var question = _questionService.DeleteQuestionById(id);
+            var question = await _questionService.DeleteQuestionById(id);
             if (question == false)
             {
                 return NotFound();
@@ -83,14 +83,14 @@ namespace Admin.Controllers
         }
 
         [HttpDelete("{domain}")]
-        public IActionResult DeleteQuestionId([FromRoute] string domain)
+        public async Task<IActionResult> DeleteQuestionDomain([FromRoute] string domain)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            var question = _questionService.DeleteQuestionByDomain(domain);
+            var question = await _questionService.DeleteQuestionByDomain(domain);
             if (question == false)
             {
                 return NotFound();
@@ -99,7 +99,7 @@ namespace Admin.Controllers
             return Ok(question);
         }
         [HttpPut("{id}")]
-        public IActionResult PutNote([FromRoute] string id, [FromBody] dynamic question)
+        public async Task<IActionResult> PutNote([FromRoute] string id, [FromBody] dynamic question)
         {
            
             var questionAsJsonString = JsonConvert.SerializeObject(question);
@@ -109,27 +109,27 @@ namespace Admin.Controllers
                 case "MCQType":
                     MCQType mcqType = JsonConvert.DeserializeObject<MCQType>(questionAsJsonString);
                     mcqType.QuestionId = id;
-                    _questionService.EditQuestion(id, mcqType);
+                    await _questionService.EditQuestion(id, mcqType);
                     break;
 
                 case "MMCQType":
 
                     MMCQType mmcqType = JsonConvert.DeserializeObject<MMCQType>(questionAsJsonString);
                     mmcqType.QuestionId = id;
-                    _questionService.EditQuestion(id, mmcqType);
+                    await _questionService.EditQuestion(id, mmcqType);
                     break;
 
                 case "FillBlanks":
 
                     FillBlanks fillBlanks = JsonConvert.DeserializeObject<FillBlanks>(questionAsJsonString);
                     fillBlanks.QuestionId = id;
-                    _questionService.EditQuestion(id, fillBlanks);
+                    await _questionService.EditQuestion(id, fillBlanks);
                     break;
 
                 default:
                     TrueFalse trueFalse = JsonConvert.DeserializeObject<TrueFalse>(questionAsJsonString);
                     trueFalse.QuestionId = id;
-                    _questionService.EditQuestion(id, trueFalse);
+                    await _questionService.EditQuestion(id, trueFalse);
                     break;
             }
 
