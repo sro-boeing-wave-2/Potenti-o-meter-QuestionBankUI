@@ -12,6 +12,7 @@ notifications:
 mono: none
 before_script:
   - cd Admin/QuestionBankView
+  - npm install -g @angular-devkit/build-angular
   - npm install -g @angular/cli
 
 script:
