@@ -11,10 +11,11 @@ notifications:
   slack: srboeingdotnet:GhCzs3W4Gj7eaQ2pLNwIWVCa
 mono: none
 before_script:
+  - cd Admin/QuestionBankView
   - npm install -g @angular/cli
 
 script:
-  - ng build --prod --aot
+  - ng build
   - ng test
 
   
