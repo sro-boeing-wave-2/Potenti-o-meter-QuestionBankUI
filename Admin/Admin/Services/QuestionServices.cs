@@ -20,11 +20,31 @@ namespace Admin.Services
         public async Task<List<Question>> GetAllQuestions()
         {
             return await _context.Questions.Find(x => true).ToListAsync();
+
         }
-        
+
+        public async Task<List<String>> GetAllDomain() 
+        {
+           // List<string> domain = new List<string>();
+            
+            var context=await _context.Questions.Find(x => true).ToListAsync();
+            var domain = context.Select(x => x.Domain).Distinct().ToList();
+            return domain;
+        }
+
+        public async Task<List<Question>> GetAllQuestionsByDomain(string domain)
+        {
+            return await _context.Questions.Find(x => x.Domain == domain).ToListAsync();
+            
+        }
+
+        public async Task<List<Question>> GetAllQuestionsByDifficultyLevel(int difficultylevel)
+        {
+            return await _context.Questions.Find(x => x.DifficultyLevel == difficultylevel).ToListAsync();
+        }
+
         public async Task<Question> AddQuestion(Question question)
         {
-            
             await _context.Questions.InsertOneAsync(question);
             return question;
         }
@@ -42,17 +62,9 @@ namespace Admin.Services
         }
 
         public async Task EditQuestion(string id, Question question)
-        {
-            
-           
+        {    
             var filter = Builders<Question>.Filter.Eq(x => x.QuestionId, id);
-
-
             var result = await _context.Questions.FindOneAndReplaceAsync(filter, question);
-
-
-            // var result = _context.Questions.UpdateOne(filter, update);
-
         }
     }
 }

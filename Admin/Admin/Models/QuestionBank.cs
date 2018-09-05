@@ -30,7 +30,7 @@ namespace Admin.Models
 
         [BsonElement("questionType")]
         [JsonProperty("questionType")]
-        public string QuestionType { get; set; }
+        public string questionType { get; set; }
 
         //Question()
         //{ if(questionType=="MMCQType")
@@ -76,7 +76,7 @@ namespace Admin.Models
     {
         [BsonElement("questionText")]
         [JsonProperty("questionText")]
-        public string QuestionText { get; set; }
+        public string questionText { get; set; }
         
         [BsonElement("correctOptionList")]
         [JsonProperty("correctOptionList")]

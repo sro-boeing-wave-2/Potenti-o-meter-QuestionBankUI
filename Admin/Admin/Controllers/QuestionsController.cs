@@ -22,9 +22,33 @@ namespace Admin.Controllers
             
         }
         [HttpGet]
-        public async Task<List<Question>> Get()
+        public async Task<IActionResult> Get()
         {
-            return await _questionService.GetAllQuestions();
+             var questions = await _questionService.GetAllQuestions();
+            return Ok(questions);
+        }
+        [HttpGet("domain")]
+        public async Task<List<String>> GetDomain()
+        {
+            return await _questionService.GetAllDomain();
+           
+        }
+
+        [HttpGet("domain/{domain}")]
+        public async Task<IActionResult> GetQuestionsDomain([FromRoute] string domain)
+        {
+            //return await _questionService.GetAllQuestionsByDomain(domain);
+            var questions = await _questionService.GetAllQuestionsByDomain(domain);
+            return Ok(questions);
+
+        }
+
+        [HttpGet("difficultylevel/{difficultylevel}")]
+        public async Task<IActionResult> GetQuestionsDomain([FromRoute] int difficultylevel)
+        {
+            var questions= await _questionService.GetAllQuestionsByDifficultyLevel(difficultylevel);
+            return Ok(questions);
+
         }
 
         [HttpPost]
@@ -62,7 +86,7 @@ namespace Admin.Controllers
                     await _questionService.AddQuestion(trueFalse);
                     break;
             }
-            return Ok();
+            return Ok(question);
         }
 
         [HttpDelete("id/{id}")]
@@ -73,13 +97,13 @@ namespace Admin.Controllers
                 return BadRequest(ModelState);
             }
 
-            var question = await _questionService.DeleteQuestionById(id);
-            if (question == false)
+            var result = await _questionService.DeleteQuestionById(id);
+            if (result == false)
             {
                 return NotFound();
             }
 
-            return Ok(question);
+            return Ok(result);
         }
 
         [HttpDelete("{domain}")]
@@ -90,16 +114,16 @@ namespace Admin.Controllers
                 return BadRequest(ModelState);
             }
 
-            var question = await _questionService.DeleteQuestionByDomain(domain);
-            if (question == false)
+            var result = await _questionService.DeleteQuestionByDomain(domain);
+            if (result == false)
             {
                 return NotFound();
             }
 
-            return Ok(question);
+            return Ok(result);
         }
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutNote([FromRoute] string id, [FromBody] dynamic question)
+        public async Task<IActionResult> PutQuestion([FromRoute] string id, [FromBody] dynamic question)
         {
            
             var questionAsJsonString = JsonConvert.SerializeObject(question);
@@ -135,7 +159,7 @@ namespace Admin.Controllers
 
 
 
-            return Ok();
+            return Ok(question);
         }
     }
 }

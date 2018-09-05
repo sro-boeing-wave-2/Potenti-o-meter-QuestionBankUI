@@ -8,6 +8,9 @@ namespace Admin.Services
     public interface IQuestionServices
     {
         Task<List<Question>> GetAllQuestions();
+        Task<List<Question>> GetAllQuestionsByDomain(string domain);
+        Task<List<Question>> GetAllQuestionsByDifficultyLevel(int difficultylevel);
+        Task<List<String>> GetAllDomain();
         Task<Question> AddQuestion(Question question);
         Task<bool> DeleteQuestionById(string id);
         Task<bool> DeleteQuestionByDomain(string domain);
