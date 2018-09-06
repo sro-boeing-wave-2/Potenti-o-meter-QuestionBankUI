@@ -35,7 +35,8 @@ export class QuestionviewComponent implements OnInit {
   selectRow(row) {
     var isDiabled = this.isDiabled;
     let dialogRef = this.dialog.open(DetailDialogComponent ,{
-      data: {row, isDiabled}
+      data: {row, isDiabled},
+      width: '350px',
     })
     console.log(row);
   }
@@ -43,7 +44,8 @@ export class QuestionviewComponent implements OnInit {
   startEdit(row) {
     var isDiabled =!this.isDiabled;
     let dialogRef = this.dialog.open(DetailDialogComponent ,{
-      data: {row, isDiabled}
+      data: {row, isDiabled},
+      width: '350px'
     })
     const sub = dialogRef.componentInstance.editedQuestion.subscribe((result) => {
       this.dataSource.paginator = this.paginator
