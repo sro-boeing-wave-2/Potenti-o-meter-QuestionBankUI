@@ -26,9 +26,9 @@ export class QuestionviewComponent implements OnInit {
     .subscribe(data => {this.Questions.push(...data.json()); this.dataSource.paginator = this.paginator;});;
   }
 
-  addNew(issue: IMCQ) {
+  addNew() {
     let dialogRef = this.dialog.open(AddDialogComponent, {
-      data: {issue}
+
   });
   }
 
