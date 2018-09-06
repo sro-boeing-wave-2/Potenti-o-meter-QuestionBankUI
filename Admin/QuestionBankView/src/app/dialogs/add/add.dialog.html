@@ -4,31 +4,26 @@
   <form class="mat-dialog-content" (ngSubmit)="submit" #formControl="ngForm">
 
     <div class="form">
-      <mat-form-field color="accent">
-        <input matInput #input class="form-control" placeholder="Id" [(ngModel)]="data" name="id" required >
+      <mat-form-field>
+        <input matInput #input class="form-control" placeholder="Domain" [(ngModel)]="data" name="Domain" required >
       </mat-form-field>
     </div>
 
-    <!--Textarea for demo purposes-->
     <div class="form">
-      <mat-form-field color="accent">
+      <mat-form-field>
         <textarea matInput #input class="form-control" placeholder="Question" [(ngModel)]="data" name="title" required ></textarea>
-        <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
-      </mat-form-field>
-    </div>
-
-    <!--Contains mat-hint for characters count and has maxLengt set-->
-    <div class="form">
-      <mat-form-field color="accent">
-        <input matInput #inputstate class="form-control" placeholder="State" [(ngModel)]="data" name="difficulty" maxlength="10" required >
-        <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
-        <mat-hint align="end">{{inputstate.value?.length || 0}}/10</mat-hint>
       </mat-form-field>
     </div>
 
     <div class="form">
-      <mat-form-field color="accent">
-        <input matInput placeholder="Url" [(ngModel)]="data" name="correct answer">
+      <mat-form-field>
+        <input matInput #inputstate class="form-control" placeholder="Difficulty" [(ngModel)]="data" name="difficulty" type=number required >
+      </mat-form-field>
+    </div>
+
+    <div class="form">
+      <mat-form-field>
+        <input matInput placeholder="Correct answer" [(ngModel)]="data" name="Correct answer">
       </mat-form-field>
     </div>
 
