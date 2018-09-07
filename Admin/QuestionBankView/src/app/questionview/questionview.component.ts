@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, Input, OnChanges, SimpleChanges} from '@angular/core';
+import { Component, OnInit, ViewChild, Input} from '@angular/core';
 import { QuestionService } from '../../service/question.service';
 import {MatPaginator, MatTableDataSource, MatDialog} from '@angular/material';
 import { IMCQ } from '../../service/mcq';
@@ -14,7 +14,7 @@ import { DeleteDialogComponent } from '../dialogs/delete/delete.dialog.component
 export class QuestionviewComponent implements OnInit {
   public Questions = [];
   public isDiabled: boolean = true;
-  @Input() postNo: number ;
+
   constructor(private _questionService: QuestionService, public dialog: MatDialog) { }
   displayedColumns: string[] = ['position', 'name', 'weight', 'symbol', 'actions'];
   dataSource = new MatTableDataSource<IMCQ>(this.Questions);
@@ -23,11 +23,12 @@ export class QuestionviewComponent implements OnInit {
 
   ngOnInit() {
     this._questionService.getQuestions()
-    .subscribe(data => {this.Questions.push(...data.json()); this.dataSource.paginator = this.paginator;});
+    .subscribe(data => {this.Questions.push(...data.json()); this.dataSource.paginator = this.paginator;});;
   }
 
   addNew() {
     let dialogRef = this.dialog.open(AddDialogComponent, {
+
   });
   }
 
@@ -37,6 +38,7 @@ export class QuestionviewComponent implements OnInit {
       data: {row, isDiabled},
       width: '350px',
     })
+    console.log(row);
   }
 
   startEdit(row) {

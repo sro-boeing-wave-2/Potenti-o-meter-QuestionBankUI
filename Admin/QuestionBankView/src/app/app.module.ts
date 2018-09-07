@@ -56,7 +56,7 @@ import { DeleteDialogComponent } from './dialogs/delete/delete.dialog.component'
     MatGridListModule,
     MatTableModule
   ],
-  providers: [QuestionService, DialogDataExampleDialog],
+  providers: [QuestionService],
   bootstrap: [AppComponent],
   entryComponents: [DialogDataExampleDialog, AddDialogComponent, DetailDialogComponent, DeleteDialogComponent]
 })

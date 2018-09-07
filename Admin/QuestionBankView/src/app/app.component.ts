@@ -1,7 +1,6 @@
-import { Component, Inject, ViewChild, Output, EventEmitter } from '@angular/core';
+import { Component, Inject, ViewChild } from '@angular/core';
 import {MatDialog, MAT_DIALOG_DATA} from '@angular/material';
 import { QuestionService } from '../service/question.service';
-import { QuestionviewComponent } from './questionview/questionview.component';
 
 export interface QuestionType {
   value: string;
@@ -16,17 +15,11 @@ export class AppComponent {
   title = 'QuestionBankView';
   public static dialogRef;
   @ViewChild('fileImportInput') fileImportInput: any;
-  @ViewChild(QuestionviewComponent) QuestionTable: QuestionviewComponent;
   constructor(public dialog: MatDialog) {}
 
   openDialog() {
     AppComponent.dialogRef = this.dialog.open(DialogDataExampleDialog, {
       disableClose: true
-    });
-    const sub = AppComponent.dialogRef.componentInstance.createdQuestion.subscribe((result) => {
-      this.QuestionTable.Questions.push(result);
-      console.log(this.QuestionTable.Questions);
-      this.QuestionTable.dataSource.paginator = this.QuestionTable.paginator;
     });
   }
 }
@@ -46,10 +39,9 @@ export class DialogDataExampleDialog {
   ];
   // public trueFalse = "True False";
   @ViewChild('fileImportInput') fileImportInput: any;
-  @Output() createdQuestion = new EventEmitter<CSVRecord>();
   public csvRecords: any[] = [];
   public dataArr = []
-
+  public postData;
 
   close() {
     AppComponent.dialogRef.close();
@@ -62,7 +54,7 @@ export class DialogDataExampleDialog {
       this._questionService.postQuestions(element).subscribe(result => {
         if(result.statusText == "OK")
         {
-          this.createdQuestion.emit(element);
+          this.postData = element;
         }
       });
     });
@@ -118,15 +110,15 @@ export class DialogDataExampleDialog {
       for(let j=1;j<5;j++)
       {
         var option: Options = new Options();
-        option.option = data[j].trim();
-        csvRecord.optionList.push(option);
+        option.Option = data[j].trim();
+        csvRecord.OptionList.push(option);
       }
       csvRecord.correctOption = data[5].trim();
-      csvRecord.difficultyLevel = data[6].trim();
+      csvRecord.difficultylevel = data[6].trim();
       csvRecord.domain = data[7].trim();
       for(let k=8;k<10;k++)
       {
-        csvRecord.conceptTags.push(data[k].trim());
+        csvRecord.ConceptTags.push(data[k].trim());
       }
       csvRecord.questionType = this.selectedOption;
       this.dataArr.push(csvRecord);
@@ -148,14 +140,14 @@ export class DialogDataExampleDialog {
 export class CSVRecord{
 
   public questionText: any;
-  public optionList = [];
-  public conceptTags = [];
+  public OptionList = [];
+  public ConceptTags = [];
   public correctOption: any;
-  public difficultyLevel: any;
+  public difficultylevel: any;
   public domain: any;
   public questionType: any;
 }
 
 export class Options{
-  public option: string ;
+  public Option: string ;
 }
