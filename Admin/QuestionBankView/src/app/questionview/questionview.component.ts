@@ -28,8 +28,11 @@ export class QuestionviewComponent implements OnInit {
 
   addNew() {
     let dialogRef = this.dialog.open(AddDialogComponent, {
-
   });
+  const sub = dialogRef.componentInstance.addedQuestion.subscribe((result) => {
+    this.Questions.push(result);
+    this.dataSource.paginator = this.paginator
+    });
   }
 
   selectRow(row) {
@@ -38,7 +41,6 @@ export class QuestionviewComponent implements OnInit {
       data: {row, isDiabled},
       width: '350px',
     })
-    console.log(row);
   }
 
   startEdit(row) {

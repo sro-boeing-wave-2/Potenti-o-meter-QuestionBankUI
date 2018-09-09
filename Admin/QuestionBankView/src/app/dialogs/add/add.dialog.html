@@ -1,52 +1,67 @@
 <div class="container">
-  <h3 mat-dialog-title>Add new Question</h3>
-
-  <form class="mat-dialog-content" (ngSubmit)="submit" #formControl="ngForm">
-
+  <h3 mat-dialog-title>Detail Question View</h3>
+  <form class="mat-dialog-content" #formControl="ngForm">
     <div class="form">
-      <mat-form-field color="accent">
-        <input matInput #input class="form-control" placeholder="Id" [(ngModel)]="data" name="id" required >
-      </mat-form-field>
-    </div>
-
-    <!--Textarea for demo purposes-->
-    <div class="form">
-      <mat-form-field color="accent">
-        <textarea matInput #input class="form-control" placeholder="Question" [(ngModel)]="data" name="title" required ></textarea>
-        <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
-      </mat-form-field>
-    </div>
-
-    <!--Contains mat-hint for characters count and has maxLengt set-->
-    <div class="form">
-      <mat-form-field color="accent">
-        <input matInput #inputstate class="form-control" placeholder="State" [(ngModel)]="data" name="difficulty" maxlength="10" required >
-        <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
-        <mat-hint align="end">{{inputstate.value?.length || 0}}/10</mat-hint>
+      <mat-form-field>
+        <input  matInput #input class="form-control" placeholder="Domain" [(ngModel)]="domain" name="domain" required >
       </mat-form-field>
     </div>
 
     <div class="form">
-      <mat-form-field color="accent">
-        <input matInput placeholder="Url" [(ngModel)]="data" name="correct answer">
+      <mat-form-field>
+        <input matInput #input class="form-control" placeholder="Difficulty" [(ngModel)]="Difficulty"  name="difficultyLevel" required >
       </mat-form-field>
     </div>
 
     <div class="form">
-      <mat-form-field color="accent">
-        <input matInput placeholder="Created at" [(ngModel)]="data" name="option">
+      <mat-form-field>
+        <input matInput #input class="form-control" placeholder="Question" [(ngModel)]="Question" name="questionText" required >
       </mat-form-field>
     </div>
 
     <div class="form">
-      <mat-form-field color="accent">
-        <input matInput placeholder="Updated at" [(ngModel)]="data" name="domain">
+      <mat-form-field>
+        <input  matInput #input class="form-control" placeholder="Correct Answer" [(ngModel)]="CorrectAnswer" name="correctOption" required >
       </mat-form-field>
     </div>
 
-    <div mat-dialog-actions>
-      <button mat-button [disabled]="!formControl.valid" [mat-dialog-close]="1" (click)="confirmAdd()">Save</button>
-      <button mat-button (click)="onNoClick()" tabindex="-1">Cancel</button>
+    <div class ="form">
+      <mat-form-field>
+        <input placeholder="Concept Tags" matInput
+        [matChipInputFor]="chipList"
+        [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+        [matChipInputAddOnBlur]="addOnBlur"
+        (matChipInputTokenEnd)="addConcept($event)"
+        />
+        <mat-chip-list #chipList>
+          <mat-chip *ngFor="let fruit of concepts" [selectable]="selectable"
+                   [removable]="removable" (removed)="removeConcept(fruit)">
+            {{fruit}}
+            <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+          </mat-chip>
+        </mat-chip-list>
+      </mat-form-field>
     </div>
+
+    <div class ="form">
+      <mat-form-field>
+        <input placeholder="Options" matInput
+        [matChipInputFor]="chipList"
+        [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+        [matChipInputAddOnBlur]="addOnBlur"
+        (matChipInputTokenEnd)="addOption($event)"
+        />
+        <mat-chip-list #chipList>
+          <mat-chip *ngFor="let fruit of options" [selectable]="selectable"
+            [removable]="removable" (removed)="removeOptions(fruit)">
+            {{fruit.option}}
+            <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+          </mat-chip>
+        </mat-chip-list>
+      </mat-form-field>
+    </div>
+    <button mat-stroked-button color="primary" (click)="submit(domain)">
+      Save
+    </button>
   </form>
 </div>
