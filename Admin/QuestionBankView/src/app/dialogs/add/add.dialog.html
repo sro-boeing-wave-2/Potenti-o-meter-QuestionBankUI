@@ -1,0 +1,67 @@
+<div class="container">
+  <h3 mat-dialog-title>Detail Question View</h3>
+  <form class="mat-dialog-content" #formControl="ngForm">
+    <div class="form">
+      <mat-form-field>
+        <input  matInput #input class="form-control" placeholder="Domain" [(ngModel)]="domain" name="domain" required >
+      </mat-form-field>
+    </div>
+
+    <div class="form">
+      <mat-form-field>
+        <input matInput #input class="form-control" placeholder="Difficulty" [(ngModel)]="Difficulty"  name="difficultyLevel" required >
+      </mat-form-field>
+    </div>
+
+    <div class="form">
+      <mat-form-field>
+        <input matInput #input class="form-control" placeholder="Question" [(ngModel)]="Question" name="questionText" required >
+      </mat-form-field>
+    </div>
+
+    <div class="form">
+      <mat-form-field>
+        <input  matInput #input class="form-control" placeholder="Correct Answer" [(ngModel)]="CorrectAnswer" name="correctOption" required >
+      </mat-form-field>
+    </div>
+
+    <div class ="form">
+      <mat-form-field>
+        <input placeholder="Concept Tags" matInput
+        [matChipInputFor]="chipList"
+        [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+        [matChipInputAddOnBlur]="addOnBlur"
+        (matChipInputTokenEnd)="addConcept($event)"
+        />
+        <mat-chip-list #chipList>
+          <mat-chip *ngFor="let fruit of concepts" [selectable]="selectable"
+                   [removable]="removable" (removed)="removeConcept(fruit)">
+            {{fruit}}
+            <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+          </mat-chip>
+        </mat-chip-list>
+      </mat-form-field>
+    </div>
+
+    <div class ="form">
+      <mat-form-field>
+        <input placeholder="Options" matInput
+        [matChipInputFor]="chipList"
+        [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+        [matChipInputAddOnBlur]="addOnBlur"
+        (matChipInputTokenEnd)="addOption($event)"
+        />
+        <mat-chip-list #chipList>
+          <mat-chip *ngFor="let fruit of options" [selectable]="selectable"
+            [removable]="removable" (removed)="removeOptions(fruit)">
+            {{fruit.option}}
+            <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+          </mat-chip>
+        </mat-chip-list>
+      </mat-form-field>
+    </div>
+    <button mat-stroked-button color="primary" (click)="submit(domain)">
+      Save
+    </button>
+  </form>
+</div>

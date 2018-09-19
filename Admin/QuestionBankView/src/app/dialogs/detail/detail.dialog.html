@@ -1,0 +1,67 @@
+<div class="container">
+  <h3 mat-dialog-title>Detail Question View</h3>
+  <form class="mat-dialog-content" #formControl="ngForm">
+    <div class="form">
+      <mat-form-field>
+        <input [disabled] = "data.isDiabled" matInput #input class="form-control" placeholder="Domain" [(ngModel)]="data.row.domain" value= "data.row.domain" name="domain" required >
+      </mat-form-field>
+    </div>
+
+    <div class="form">
+      <mat-form-field>
+        <input [disabled] = "data.isDiabled" matInput #input class="form-control" placeholder="Difficulty" [(ngModel)]="data.row.difficultyLevel" value= "data.row.difficultyLevel" name="difficultyLevel" required >
+      </mat-form-field>
+    </div>
+
+    <div class="form">
+      <mat-form-field>
+        <input [disabled] = "data.isDiabled" matInput #input class="form-control" placeholder="Question" [(ngModel)]="data.row.questionText" value= "data.row.questionText" name="questionText" required >
+      </mat-form-field>
+    </div>
+
+    <div class="form">
+      <mat-form-field>
+        <input [disabled] = "data.isDiabled" matInput #input class="form-control" placeholder="Correct Answer" [(ngModel)]="data.row.correctOption" value= "data.row.correctOption" name="correctOption" required >
+      </mat-form-field>
+    </div>
+
+    <div class ="form">
+      <mat-form-field>
+        <input placeholder="Concept Tags" matInput
+        [matChipInputFor]="chipList"
+        [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+        [matChipInputAddOnBlur]="addOnBlur"
+        (matChipInputTokenEnd)="addConcept($event)"
+        [disabled] ="data.isDiabled"/>
+        <mat-chip-list #chipList>
+          <mat-chip *ngFor="let fruit of data.row.conceptTags" [selectable]="selectable"
+                   [removable]="removable" (removed)="removeConcept(fruit)">
+            {{fruit}}
+            <mat-icon matChipRemove *ngIf="removable && !data.isDiabled">cancel</mat-icon>
+          </mat-chip>
+        </mat-chip-list>
+      </mat-form-field>
+    </div>
+
+    <div class ="form">
+      <mat-form-field>
+        <input placeholder="Options" matInput
+        [matChipInputFor]="chipList"
+        [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+        [matChipInputAddOnBlur]="addOnBlur"
+        (matChipInputTokenEnd)="addOption($event)"
+        [disabled] ="data.isDiabled"/>
+        <mat-chip-list #chipList>
+          <mat-chip *ngFor="let fruit of data.row.optionList" [selectable]="selectable"
+            [removable]="removable" (removed)="removeOptions(fruit)">
+            {{fruit.option}}
+            <mat-icon matChipRemove *ngIf="removable && !data.isDiabled">cancel</mat-icon>
+          </mat-chip>
+        </mat-chip-list>
+      </mat-form-field>
+      </div>
+    <button mat-stroked-button color="primary" (click)="SaveData(data.row)"  *ngIf="!data.isDiabled">
+      Save
+    </button>
+  </form>
+</div>
