@@ -1,48 +1,73 @@
-#dialog {
-  width: 600px;
-  height: 200px;
+body {
+  padding: 20px;
 }
 
-#close-button {
-  float: right;
+.evidence-lib input {
+  margin-right: 12px;
 }
-#form {
-  width: 25%;
-  margin: 0 auto;
+.evidence-lib .evidence-inputs input {
+  min-width: 400px !important;
 }
-#select {
-  margin: auto;
+.evidence-lib .evidence-inputs .btn-secondary {
+  margin-right: 12px;
 }
-
-#input {
-  float: right;
+.evidence-lib select {
+  margin-right: 12px;
 }
-
-.QuestionText {
-  width: 100%;
+.evidence-lib .tab-pane {
+  padding-top: 20px;
 }
-
-.fileDropTarget {
-  width: 100%;
-  height: 100%;
-  border: solid thin #1a1a1a;
-  position: relative;
+.evidence-lib .caps th {
+  text-transform: uppercase;
+}
+.evidence-lib header {
+  display: flex;
+}
+.evidence-lib .file-uploader {
+  background: #ffeff8;
+  border: 2px dashed #ff22a5;
+  margin: 12px 0;
+  padding-top: 24px;
   display: flex;
   align-items: center;
-  justify-content: center;
+  border-radius: 3px;
+  flex-wrap: wrap;
+  color: #eb008b;
+  flex-direction: column;
 }
-
-.fileDropTargetfile:before {
-  content: "Drop files here or";
-  display: block;
+.evidence-lib .file-uploader i {
+  flex-basis: 100%;
   text-align: center;
-  position: absolute;
-  left: 0;
-  top: 44.5%;
-  width: 100%;
+  margin-bottom: 12px;
+}
+.evidence-lib .file-uploader p {
+  font-weight: bold;
+  font-size: 20px;
+}
+.evidence-lib .btn-primary {
+  background: #359030 !important;
+  border-color: #359030 !important;
+}
+.evidence-lib .upload-but {
+  text-align: right;
+}
+.evidence-lib .evidence-header {
+  display: flex;
+  justify-content: space-between;
+}
+.evidence-lib .table thead th {
+  background: #333;
+  color: aliceblue;
+  font-weight: normal;
+  padding: 2px 12px;
+  border-bottom: 0;
 }
 
-#CreateQuestion{
-  float: right;
-  margin-top: 10px;
+.browse {
+  margin-right: 10px;
+}
+
+#header-text {
+  margin-top: auto;
+  margin-bottom: auto;
 }

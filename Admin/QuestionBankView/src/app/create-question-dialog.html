@@ -1,52 +1,51 @@
-<section id="dialog">
-  <section id="close-button">
-    <button (click)="close()" mat-icon-button md-dialog-close>
-      <mat-icon>close</mat-icon>
-    </button>
-  </section>
-  <section id="form">
-    <mat-form-field id="select">
-      <mat-select [(ngModel)]="selectedOption" placeholder="Question type">
-        <mat-option *ngFor="let question of Questions" [value]="question.value">
-          {{question.value}}
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
-    <!-- <mat-form-field id="input">
-      <input matInput placeholder="Difficulty level" type="number">
-    </mat-form-field> -->
-  </section>
-  <div class="fileDropTarget">
-    <div>
-      <input type="file" #fileImportInput name="File Upload" id="txtFileUpload" (change)="fileChangeListener($event)" accept=".csv" multiple id="inputAddFiles" />
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.1/css/bootstrap.css" rel="stylesheet">
+
+<section class="evidence-lib">
+
+
+<div class="tab-content" id="nav-tabContent">
+  <div class="tab-pane fade  show active" id="nav-upload" role="tabpanel" aria-labelledby="nav-home-tab">
+    <div class="evidence-header">
+     <h4 id="header-text">Add Questions</h4>
+     <section id="form">
+        <mat-form-field id="select">
+          <mat-select [(ngModel)]="selectedOption" placeholder="Question type">
+            <mat-option *ngFor="let question of Questions" [value]="question.value">
+              {{question.value}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </section>
+    </div>
+    <div class="file-uploader">
+      <i class="fas fa-file-import fa-5x"></i>
+      <p>Drag and drop files here or click 'browse' button: </p>
+    </div>
+ <table class="table table-striped" *ngIf="fileupload">
+  <thead>
+    <tr class="caps">
+      <th scope="col">Filename</th>
+      <th scope="col">File status</th>
+      <th scope="col">File action</th>
+      <th scope="col"></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>{{filename}}</th>
+      <td>Ready to upload</td>
+      <td>---</td>
+      <td><button (click)="reset()" class="btn"><i class="fas fa-trash"></i></button></td>
+    </tr>
+  </tbody>
+</table>
+
+    <div class="upload-but">
+       <input #myInput type="file" id="selectedFile" (change)= "showname($event)" accept=".csv" style="display: none;" />
+       <button type="button" onclick="document.getElementById('selectedFile').click()" class="btn btn-secondary browse">Browse</button>
+       <button class="btn btn-primary" (click)="submit()"><i class="fas fa-upload"></i> Upload Questions</button>
     </div>
   </div>
-  <section>
-    <button id="CreateQuestion" mat-raised-button color="accent" (click)="Submit()">
-      Submit
-    </button>
-  </section>
-  <!-- <div *ngFor="let csvData of csvRecords;let i = index;">
-    {{csvData.questionText}}
-  </div> -->
+</div>
 </section>
-
-
-
-
-
-  <!-- Whole functionality to be used later-->
-  <!-- <section>
-    <ng-container *ngIf="selectedOption == trueFalse; else elseif1">
-      <mat-form-field class="QuestionText">
-        <textarea matInput id="QuestionText" maxlength="256" placeholder="Question"></textarea>
-      </mat-form-field>
-    </ng-container>
-  </section>
-  <ng-template #elseif1>
-    <ng-container *ngIf="selectedOption === 99; else elseif2">bar === 99</ng-container>
-  </ng-template>
-  <ng-template #elseif2>
-    <ng-container *ngIf="selectedOption === 2; else else1">foo === 2</ng-container>
-  </ng-template>
-  <ng-template #else1></ng-template> -->
