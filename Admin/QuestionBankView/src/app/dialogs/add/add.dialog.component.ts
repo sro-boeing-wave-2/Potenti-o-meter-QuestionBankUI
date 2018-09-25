@@ -3,7 +3,7 @@ import {Component, Inject, Output, EventEmitter} from '@angular/core';
 import {QuestionService} from '../../../service/question.service';
 import {COMMA, ENTER} from '@angular/cdk/keycodes';
 import {IMCQ} from '../../../service/mcq';
-import { CSVRecord } from '../../app.component';
+import { MCQRecord } from '../../Models/MCQRecord';
 
 @Component({
   selector: 'app-add.dialog',
@@ -26,23 +26,23 @@ export class AddDialogComponent {
   public concepts = [];
   public options = [];
   public CorrectAnswer:string;
-  public postData= {} as CSVRecord;
-  @Output() addedQuestion = new EventEmitter<CSVRecord>();
+  public postData= {} as MCQRecord;
+  @Output() addedQuestion = new EventEmitter<MCQRecord>();
 
   submit() {
-    this.postData.domain = this.domain;
-    this.postData.difficultylevel = this.Difficulty;
-    this.postData.questionText = this.Question;
-    this.postData.correctOption = this.CorrectAnswer;
-    this.postData.ConceptTags = [...this.concepts];
-    this.postData.OptionList = [...this.options];
-    this.dataService.postQuestions(this.postData).subscribe(result => {
-      if(result.statusText == "OK")
-      {
-        this.addedQuestion.emit(this.postData);
-      }
-    });
-    this.dialogRef.close();
+    // this.postData.domain = this.domain;
+    // this.postData.difficultylevel = this.Difficulty;
+    // this.postData.questionText = this.Question;
+    // this.postData.correctOption = this.CorrectAnswer;
+    // this.postData.ConceptTags = [...this.concepts];
+    // this.postData.OptionList = [...this.options];
+    // this.dataService.postQuestions(this.postData).subscribe(result => {
+    //   if(result.statusText == "OK")
+    //   {
+    //     this.addedQuestion.emit(this.postData);
+    //   }
+    // });
+    // this.dialogRef.close();
   }
 
   addConcept(event: MatChipInputEvent): void {

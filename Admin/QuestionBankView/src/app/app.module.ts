@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { PapaParseModule } from 'ngx-papaparse';
 import {
   MatCardModule,
   MatDialogModule,
@@ -47,6 +48,7 @@ import { DeleteDialogComponent } from './dialogs/delete/delete.dialog.component'
     FormsModule,
     MatChipsModule,
     MatIconModule,
+    PapaParseModule,
     MatToolbarModule,
     MatButtonModule,
     MatDialogModule,

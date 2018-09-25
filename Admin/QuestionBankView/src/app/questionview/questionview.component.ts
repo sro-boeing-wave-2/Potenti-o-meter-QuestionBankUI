@@ -23,7 +23,8 @@ export class QuestionviewComponent implements OnInit {
 
   ngOnInit() {
     this._questionService.getQuestions()
-    .subscribe(data => {this.Questions.push(...data.json()); this.dataSource.paginator = this.paginator;});;
+    .subscribe(data => {this.Questions.push(...data.json()); this.dataSource.paginator = this.paginator;
+    console.log(data.json())});
   }
 
   addNew() {
@@ -37,6 +38,7 @@ export class QuestionviewComponent implements OnInit {
 
   selectRow(row) {
     var isDiabled = this.isDiabled;
+    console.log(row);
     let dialogRef = this.dialog.open(DetailDialogComponent ,{
       data: {row, isDiabled},
       width: '350px',

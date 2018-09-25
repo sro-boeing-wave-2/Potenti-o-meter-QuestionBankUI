@@ -33,3 +33,15 @@ section{
   font-family: 'Roboto', sans-serif;
   margin: 50px;
 }
+
+.mat-column-position {
+  width:40%;
+}
+
+.mat-column-actions {
+  width:10%;
+}
+
+.mat-column-name {
+  padding-left: 2%;
+}
