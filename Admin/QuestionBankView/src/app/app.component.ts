@@ -1,8 +1,9 @@
-import { Component, Inject, ViewChild, ElementRef } from '@angular/core';
+import { Component, Inject, ViewChild, ElementRef, Output, EventEmitter } from '@angular/core';
 import {MatDialog, MAT_DIALOG_DATA} from '@angular/material';
 import { QuestionService } from '../service/question.service';
 import { MCQRecord, MCQOption } from './Models/MCQRecord';
 import { MMCQRecord, MMCQOption } from './Models/MMCQRecord';
+import { QuestionviewComponent } from './questionview/questionview.component';
 
 export interface QuestionType {
   value: string;
@@ -17,10 +18,19 @@ export class AppComponent {
   title = 'QuestionBankView';
   public static dialogRef;
   @ViewChild('fileImportInput') fileImportInput: any;
+  @ViewChild(QuestionviewComponent) inputComponent: QuestionviewComponent
   constructor(public dialog: MatDialog) {}
 
   openDialog() {
     AppComponent.dialogRef = this.dialog.open(DialogDataExampleDialog, {
+    });
+    const mcq = AppComponent.dialogRef.componentInstance.mcqQuestion.subscribe((result) => {
+      this.inputComponent.Questions.push(result);
+      this.inputComponent.dataSource.paginator = this.inputComponent.paginator;
+    });
+    const mmcq = AppComponent.dialogRef.componentInstance.mmcqQuestion.subscribe((result) => {
+      this.inputComponent.Questions.push(result);
+      this.inputComponent.dataSource.paginator = this.inputComponent.paginator;
     });
   }
 }
@@ -38,6 +48,8 @@ export class DialogDataExampleDialog {
     {value: 'MCQ'},
     {value: 'MMCQ'},
   ];
+  @Output() mcqQuestion = new EventEmitter<MCQRecord>();
+  @Output() mmcqQuestion = new EventEmitter<MMCQRecord>();
   public selectedOption; postData;
   public csvRecords: any[] = [];
   public dataArr = [];
@@ -59,7 +71,6 @@ export class DialogDataExampleDialog {
       reader.onload = (data) => {
         let csvData = reader.result;
         let csvRecordsArray = (csvData as string).split(/\r\n|\n/);
-        // console.log(csvRecordsArray[0]);
         let headersRow = this.getHeaderArray(csvRecordsArray);
         this.csvRecords = this.getDataRecordsArrayFromCSVFile(csvRecordsArray, headersRow.length);
       }
@@ -95,61 +106,60 @@ export class DialogDataExampleDialog {
   getDataRecordsArrayFromCSVFile(csvRecordsArray: any, headerLength: any) {
     for (let i = 1; i < csvRecordsArray.length; i++) {
     let data = csvRecordsArray[i].match(/(".*?"|[^",]+)(?=\s*,|\s*$)/g);
-    console.log(data);
     if (data.length == headerLength) {
       if(this.selectedOption=="MCQ")
       {
       var mcq: MCQRecord = new MCQRecord();
-      mcq.QuestionText = data[0].trim();
-      mcq.QuestionType = this.selectedOption;
-      mcq.Taxonomy = data[2].trim();
-      mcq.DifficultyLevel = data[6].trim();
-      mcq.Domain = data[1].trim();
+      mcq.questionText = data[0].trim();
+      mcq.questionType = this.selectedOption;
+      mcq.taxonomy = data[2].trim();
+      mcq.difficultyLevel = data[6].trim();
+      mcq.domain = data[1].trim();
       const options = data[3].replace('"','').replace('"','').split(",");
       for(let j=0;j<options.length;j++)
       {
         var option:MCQOption = new MCQOption();
-        option.OptionText= options[i];
-        mcq.Options.push(option);
+        option.optionText= options[i];
+        mcq.options.push(option);
       }
       const concepts = data[4].replace('"','').replace('"','').split(",");
 
       for(let k=0;k<concepts.length;k++){
-        mcq.ConceptTags.push(concepts[k]);
+        mcq.conceptTags.push(concepts[k]);
       }
 
       {
         var correctoption:MCQOption = new MCQOption;
-        correctoption.OptionText= data[5].trim();
-        mcq.CorrectAnswer = correctoption;
+        correctoption.optionText= data[5].trim();
+        mcq.correctAnswer = correctoption;
       }
       this.dataArr.push(mcq);
       }
       else if(this.selectedOption=="MMCQ")
       {
         var mmcq: MMCQRecord = new MMCQRecord();
-      mmcq.QuestionText = data[0].trim();
-      mmcq.QuestionType = this.selectedOption;
-      mmcq.Taxonomy = data[2].trim();
-      mmcq.DifficultyLevel = data[6].trim();
-      mmcq.Domain = data[1].trim();
+      mmcq.questionText = data[0].trim();
+      mmcq.questionType = this.selectedOption;
+      mmcq.taxonomy = data[2].trim();
+      mmcq.difficultyLevel = data[6].trim();
+      mmcq.domain = data[1].trim();
       const options = data[3].replace('"','').replace('"','').split(",");
       for(let j=0;j<options.length;j++)
       {
         var option:MMCQOption = new MMCQOption();
-        option.OptionText= options[i];
-        mmcq.Options.push(option);
+        option.optionText= options[i];
+        mmcq.options.push(option);
       }
       const concepts = data[4].replace('"','').replace('"','').split(",");
 
       for(let k=0;k<concepts.length;k++){
-        mmcq.ConceptTags.push(concepts[k]);
+        mmcq.conceptTags.push(concepts[k]);
       }
       const correctoptions = data[5].replace('"','').replace('"','').split(",");
       {
         var correctoption:MMCQOption = new MMCQOption;
-        correctoption.OptionText= correctoptions[i];
-        mmcq.CorrectAnswer.push(correctoption);
+        correctoption.optionText= correctoptions[i];
+        mmcq.correctAnswer.push(correctoption);
       }
       this.dataArr.push(mmcq);
       }
@@ -173,8 +183,25 @@ export class DialogDataExampleDialog {
   }
 
   submit(){
-    AppComponent.dialogRef.close();
-    console.log(this.dataArr);
+    this.dataArr.forEach(element => {
+      this._questionService.postQuestions(element).subscribe(result => {
+        if(result.statusText == "OK")
+        {
+          this.postData = element;
+          if(element.QuestionType=="MCQ")
+          {
+            this.mcqQuestion.emit(element);
+            console.log("emitted MCQ");
+            AppComponent.dialogRef.close();
+          }
+          else {
+            this.mmcqQuestion.emit(this.postData);
+            AppComponent.dialogRef.close();
+          }
+          console.log(result.statusText);
+        }
+      });
+    });
   }
 }
 

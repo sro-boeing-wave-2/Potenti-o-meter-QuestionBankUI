@@ -1,14 +1,14 @@
 export class MMCQRecord {
-  public QuestionText : any;
-  public Options: MMCQOption[]= [];
-  public ConceptTags = [];
-  public DifficultyLevel : any;
-  public Domain : any;
-  public Taxonomy : any;
-  public QuestionType : any;
-  public CorrectAnswer : MMCQOption[] = [];
+  public questionText : any;
+  public options: MMCQOption[]= [];
+  public conceptTags = [];
+  public difficultyLevel : any;
+  public domain : any;
+  public taxonomy : any;
+  public questionType : any;
+  public correctAnswer : MMCQOption[] = [];
 }
 
 export class MMCQOption {
-  public OptionText : any;
+  public optionText : any;
 }

@@ -21,7 +21,7 @@
 
     <div class="form">
       <mat-form-field>
-        <input [disabled] = "data.isDiabled" matInput #input class="form-control" placeholder="Correct Answer" [(ngModel)]="data.row.correctOption" value= "data.row.correctOption" name="correctOption" required >
+        <input [disabled] = "data.isDiabled" matInput #input class="form-control" placeholder="Correct Answer" [(ngModel)]="data.row.correctAnswer.optionText" value= "data.row.correctOption" name="correctOption" required >
       </mat-form-field>
     </div>
 
@@ -52,9 +52,9 @@
         (matChipInputTokenEnd)="addOption($event)"
         [disabled] ="data.isDiabled"/>
         <mat-chip-list #chipList>
-          <mat-chip *ngFor="let fruit of data.row.optionList" [selectable]="selectable"
+          <mat-chip *ngFor="let fruit of data.row.options" [selectable]="selectable"
             [removable]="removable" (removed)="removeOptions(fruit)">
-            {{fruit.option}}
+            {{fruit.optionText}}
             <mat-icon matChipRemove *ngIf="removable && !data.isDiabled">cancel</mat-icon>
           </mat-chip>
         </mat-chip-list>
