@@ -111,7 +111,7 @@ export class DialogDataExampleDialog {
       {
       var mcq: MCQRecord = new MCQRecord();
       mcq.questionText = data[0].trim();
-      mcq.questionType = this.selectedOption;
+      mcq.QuestionType = this.selectedOption;
       mcq.taxonomy = data[2].trim();
       mcq.difficultyLevel = data[6].trim();
       mcq.domain = data[1].trim();

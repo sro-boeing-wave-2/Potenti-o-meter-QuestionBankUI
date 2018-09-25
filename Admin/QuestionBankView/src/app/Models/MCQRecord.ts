@@ -6,7 +6,7 @@ export class MCQRecord{
   public difficultyLevel : any;
   public domain : any;
   public taxonomy : any;
-  public questionType : any;
+  public QuestionType : any;
   public correctAnswer : MCQOption;
 }
 

@@ -23,7 +23,8 @@ export class QuestionviewComponent implements OnInit {
 
   ngOnInit() {
     this._questionService.getQuestions()
-    .subscribe(data => {this.Questions.push(...data.json()); this.dataSource.paginator = this.paginator;});
+    .subscribe(data => {this.Questions.push(...data.json()); this.dataSource.paginator = this.paginator;
+    console.log(data.json())});
   }
 
   addNew() {
