@@ -3,5 +3,5 @@ services:
  angular:
   build: .
   labels:
-    - "SERVICE_80_NAME=QuestionBankUI"
+    - "SERVICE_4200_NAME=QuestionBankUI"
     - "SERVICE_TAGS=QuestionBankUITag"
