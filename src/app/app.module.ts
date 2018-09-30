@@ -28,6 +28,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { AddDialogComponent } from './dialogs/add/add.dialog.component';
 import { DetailDialogComponent } from './dialogs/detail/detail.dialog.component';
 import { DeleteDialogComponent } from './dialogs/delete/delete.dialog.component';
+import { AppRoutingModule } from './/app-routing.module';
 
 @NgModule({
   declarations: [
@@ -56,7 +57,8 @@ import { DeleteDialogComponent } from './dialogs/delete/delete.dialog.component'
     MatSelectModule,
     BrowserAnimationsModule,
     MatGridListModule,
-    MatTableModule
+    MatTableModule,
+    AppRoutingModule
   ],
   providers: [QuestionService],
   bootstrap: [AppComponent],
