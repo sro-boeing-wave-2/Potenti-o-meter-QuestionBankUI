@@ -19,7 +19,8 @@ import {
   MatGridListModule,
   MatTableModule
 } from '@angular/material';
-import { AppComponent, DialogDataExampleDialog } from './app.component';
+import { AppComponent,  } from './app.component';
+import {DialogDataExampleDialog, ImportQuestionbankComponent} from './import-questionbank/import-questionbank.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { QuestionviewComponent } from './questionview/questionview.component';
 import { QuestionService } from '../service/question.service';
@@ -28,6 +29,21 @@ import { HttpClientModule } from '@angular/common/http';
 import { AddDialogComponent } from './dialogs/add/add.dialog.component';
 import { DetailDialogComponent } from './dialogs/detail/detail.dialog.component';
 import { DeleteDialogComponent } from './dialogs/delete/delete.dialog.component';
+import { RouterModule, Routes, Router } from '@angular/router';
+
+
+const appRoutes: Routes = [
+  {
+    path: 'import-concept-map',
+    component: ImportQuestionbankComponent,
+  },
+  {
+    path: '',
+    redirectTo: '/import-concept-map',
+    pathMatch: 'full',
+  }
+];
+
 
 @NgModule({
   declarations: [
@@ -36,7 +52,8 @@ import { DeleteDialogComponent } from './dialogs/delete/delete.dialog.component'
     QuestionviewComponent,
     AddDialogComponent,
     DetailDialogComponent,
-    DeleteDialogComponent
+    DeleteDialogComponent,
+    ImportQuestionbankComponent
   ],
   imports: [
     BrowserModule,
@@ -55,6 +72,7 @@ import { DeleteDialogComponent } from './dialogs/delete/delete.dialog.component'
     MatInputModule,
     MatSelectModule,
     BrowserAnimationsModule,
+    RouterModule.forRoot(appRoutes),
     MatGridListModule,
     MatTableModule,
   ],
