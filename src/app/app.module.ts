@@ -34,12 +34,12 @@ import { RouterModule, Routes, Router } from '@angular/router';
 
 const appRoutes: Routes = [
   {
-    path: 'import-concept-map',
+    path: 'import-questionbank',
     component: ImportQuestionbankComponent,
   },
   {
     path: '',
-    redirectTo: '/import-concept-map',
+    redirectTo: '/import-questionbank',
     pathMatch: 'full',
   }
 ];
