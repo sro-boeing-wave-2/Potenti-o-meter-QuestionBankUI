@@ -5,9 +5,9 @@ import { MCQRecord, MCQOption } from './Models/MCQRecord';
 import { MMCQRecord, MMCQOption } from './Models/MMCQRecord';
 import { QuestionviewComponent } from './questionview/questionview.component';
 
-export interface QuestionType {
-  value: string;
-}
+// export interface QuestionType {
+//   value: string;
+// }
 
 @Component({
   selector: 'app-root',

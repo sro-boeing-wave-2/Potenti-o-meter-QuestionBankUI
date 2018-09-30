@@ -45,8 +45,8 @@ export class ImportQuestionbankComponent implements OnInit {
 
 @Component({
   selector: 'create-question-dialog',
-  templateUrl: 'create-question-dialog.html',
-  styleUrls: ['create-question-dialog.css']
+  templateUrl: '../create-question-dialog.html',
+  styleUrls: ['../create-question-dialog.css']
 })
 export class DialogDataExampleDialog {
   constructor(@Inject(MAT_DIALOG_DATA) public data: any, private _questionService: QuestionService) {}
