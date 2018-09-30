@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
-  { path: '/admin', redirectTo: '', pathMatch: 'full' }
+  { path: '', redirectTo: '/', pathMatch: 'full' }
 ];
 
 @NgModule({
