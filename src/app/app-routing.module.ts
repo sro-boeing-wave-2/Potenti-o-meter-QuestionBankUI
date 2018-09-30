@@ -4,8 +4,8 @@ import { RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
   {
-    path: '',
-    redirectTo: '/apps',
+    path: '/admin',
+    redirectTo: '',
     pathMatch: 'full' }
   ];
 
