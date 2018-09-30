@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
+import { QuestionviewComponent } from './questionview/questionview.component';
 
 const routes: Routes = [
   {
-    path: 'admin',
-    redirectTo: '',
-    pathMatch: 'full' }
+    path: '',
+    component: QuestionviewComponent}
   ];
 
 @NgModule({
