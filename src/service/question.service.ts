@@ -7,7 +7,7 @@ import { IMCQ } from './mcq';
   providedIn: 'root'
 })
 export class QuestionService {
-  private _url:string = "http://localhost:44334/api/questions/";
+  private _url:string = "http://13.126.26.172/questionbank/";
   constructor(private http:Http) { }
 
   getQuestions()
