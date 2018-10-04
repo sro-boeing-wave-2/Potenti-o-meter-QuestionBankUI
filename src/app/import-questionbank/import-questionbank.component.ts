@@ -155,7 +155,7 @@ export class DialogDataExampleDialog {
       for(let j=0;j<options.length;j++)
       {
         var option:MMCQOption = new MMCQOption();
-        option.optionText= options[i];
+        option.optionText= options[j];
         mmcq.options.push(option);
       }
       const concepts = data[4].replace('"','').replace('"','').split(",");
