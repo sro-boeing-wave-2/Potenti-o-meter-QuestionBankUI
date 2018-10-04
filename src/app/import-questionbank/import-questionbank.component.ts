@@ -140,6 +140,7 @@ export class DialogDataExampleDialog {
       {
         var correctoption:MCQOption = new MCQOption;
         correctoption.optionText= data[5].trim();
+        correctoption.raw = data[5].trim();
         mcq.correctAnswer = correctoption;
       }
       this.dataArr.push(mcq);
@@ -169,6 +170,7 @@ export class DialogDataExampleDialog {
       {
         var correctoption:MMCQOption = new MMCQOption;
         correctoption.optionText= correctoptions[i];
+        correctoption.raw = data[5].trim();
         mmcq.correctAnswer.push(correctoption);
       }
       this.dataArr.push(mmcq);
