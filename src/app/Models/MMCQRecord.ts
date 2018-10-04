@@ -11,4 +11,5 @@ export class MMCQRecord {
 
 export class MMCQOption {
   public optionText : any;
+  public raw :any;
 }

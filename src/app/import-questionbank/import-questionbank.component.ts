@@ -127,7 +127,8 @@ export class DialogDataExampleDialog {
       for(let j=0;j<options.length;j++)
       {
         var option:MCQOption = new MCQOption();
-        option.optionText= options[i];
+        option.optionText= options[j];
+        option.raw = options[j];
         mcq.options.push(option);
       }
       const concepts = data[4].replace('"','').replace('"','').split(",");
@@ -156,6 +157,7 @@ export class DialogDataExampleDialog {
       {
         var option:MMCQOption = new MMCQOption();
         option.optionText= options[j];
+        option.raw = options[j];
         mmcq.options.push(option);
       }
       const concepts = data[4].replace('"','').replace('"','').split(",");
